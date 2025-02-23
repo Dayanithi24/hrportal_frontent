@@ -1,0 +1,38 @@
+<div class="login-container">
+    <div class="bg-rod"></div>
+    <div class="login-card">
+        <div class="login-img-container">
+            <h2>Login</h2>
+        </div>
+        <div class="login-content-container">
+            <div class="input-container">
+                <div class="input-label-container">
+                    <label>Email</label>
+                    <span></span>
+                </div>
+                <input type="mail">
+            </div>
+            <div class="input-container">
+                <div class="input-label-container">
+                    <label>Password</label>
+                </div>
+                <div class="password-container">
+                    <input [type]="isEye ? 'password' : 'text'">
+                    <i class="fa-solid {{isEye ? 'fa-eye' :'fa-eye-slash'}}" (click)="changePasswordType()"></i>
+                </div>
+            </div>
+            <div class="input-label-container">
+                <span></span>
+                <a>Forget Password</a>
+            </div>
+            <button class="login-btn">Log in</button>
+        </div>
+        <div class="line">
+            
+        </div>
+        <button class="google-login">
+            <img src="google.png">
+            <span>Login with Google</span>
+        </button>
+    </div>
+</div>
