@@ -1,0 +1,61 @@
+<div class="form-container">
+    <form [formGroup]="userData" class="form">
+        <div class="form-input-container">
+        <div class="input-container">
+            <label>First Name</label>
+            <input type="text" formControlName="firstName" placeholder="Harry" class="form-input">
+        </div>
+        <div class="input-container">
+            <label>Last Name</label>
+            <input type="text" formControlName="lastName" placeholder="Potter" class="form-input">
+        </div>
+        <div class="input-container">
+            <label>Email</label>
+            <input type="email" formControlName="email" placeholder="xyz@gmail.com" class="form-input">
+        </div>
+        <div class="input-container">
+            <label>Gender</label>
+            <div class="radio-container">
+                <span class="radio-input-container">
+                    <input type="radio" value="Male" id="1" formControlName="gender" class="form-input-radio"> 
+                    <label for="1">Male</label>
+                </span>
+                <span class="radio-input-container">
+                    <input type="radio" value="Female" id="2" formControlName="gender" class="form-input-radio"> 
+                    <label for="2">Female</label>
+                </span>
+            </div>
+        </div>
+        <div class="input-container">
+            <label>Location</label>
+            <input type="text" formControlName="location" placeholder="Coimbatore" class="form-input">
+        </div>
+        <div class="input-container">
+            <label>Phone Number</label>
+            <input type="text" formControlName="phoneNumber" placeholder="9876543210" class="form-input">
+        </div>
+        <div class="input-container">
+            <label>Date of Birth</label>
+            <input type="date" formControlName="dateOfBirth" class="form-input">
+        </div>
+        <div class="input-container">
+            <label>Date of Joining</label>
+            <input type="date" formControlName="dateOfJoining" class="form-input">
+        </div>
+        <div class="input-container">
+            <label>Designation</label>
+            <select name="designation" class="form-input">
+                <option>Trainee</option>
+                <option>HR</option>
+                <option>Manager</option>
+                <option>Junior Developer</option>
+                <option>Senior Developer</option>
+            </select>
+        </div>
+    </div>
+    <div class="btn-container">
+        <input type="reset" value="Reset" class="delete-btn">
+        <input type="submit" value="Create" class="success-btn">
+    </div>
+    </form>
+</div>

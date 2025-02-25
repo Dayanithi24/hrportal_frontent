@@ -1,0 +1,19 @@
+.user-table {
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.user-table-row {
+    
+}
+
+.user-table-header {
+    background-color: #666;
+}
+
+.user-table-cell {
+    padding: 5px;
+    width: 200px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}

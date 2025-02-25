@@ -1,0 +1,13 @@
+<table class="user-table">
+    <tr class="user-table-row">
+        <th *ngFor="let key of objectKeys(profiles[0])" class="user-table-header user-table-cell">
+            {{key}}
+        </th>
+    </tr>
+    <tr *ngFor="let profile of profiles; let i = index" class="user-table-row">
+        <td *ngFor="let key of objectKeys(profile)" class="user-table-cell">
+            {{profile[key]}}
+        </td>
+    </tr>
+</table>
+<a routerLink="../create-user">Click</a>

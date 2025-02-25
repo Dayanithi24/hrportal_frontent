@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    position: relative;
+}
+
+.content {
+    height: 90vh;
+    width: 94vw;
+    overflow-y: scroll;
+    margin-left: 6vw;
+}
