@@ -5,6 +5,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { RouterModule, RouterLink } from '@angular/router';
 import { userManagementRoutes } from './user-management.routes';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { AvatarComponent } from "../avatar/avatar.component";
 
 
 
@@ -14,7 +15,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     CommonModule,
     RouterModule.forChild(userManagementRoutes),
     ReactiveFormsModule,
-    RouterLink
-  ]
+    RouterLink,
+    AvatarComponent
+]
 })
 export class UserManagementModule { }

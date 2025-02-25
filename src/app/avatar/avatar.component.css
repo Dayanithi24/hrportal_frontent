@@ -1,0 +1,81 @@
+.user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 100%;
+  min-width: 0;
+  padding: 5px 10px;
+  height: 54px;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.user-card-data {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.view-container {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+  color: white;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 1s ease-in-out 0.5s;
+  transition: background-color 0.6s ease-in-out;
+}
+
+.user-card:hover {
+  background-color: #eee;
+}
+
+.user-card:hover .view-container {
+  color: #FF0080;
+}
+
+.user-card:hover .view-container:hover {
+  color: white;
+  background-color: #FF0080;
+}
+
+.user-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-card-content h4 {
+  color: #555;
+}
+
+.user-card-content p {
+  color: #6c6c6c;
+  font-size: 14px;
+}
+
+.user-card-img-container {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.user-card-img {
+  height: 100%;
+  width: 100%;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: x-large;
+}

@@ -1,11 +1,27 @@
 .container {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
 
 .content {
-    height: 90vh;
-    width: 94vw;
-    overflow-y: scroll;
-    margin-left: 6vw;
+  height: 90vh;
+  width: 94vw;
+  overflow-y: scroll;
+  margin-left: 6vw;
+}
+
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.content::-webkit-scrollbar-thumb:hover, .scrolling::-webkit-scrollbar-thumb {
+  background-color: #555;
 }

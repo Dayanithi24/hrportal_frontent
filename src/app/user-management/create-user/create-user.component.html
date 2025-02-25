@@ -1,5 +1,5 @@
 <div class="form-container">
-    <form [formGroup]="userData" class="form">
+    <form [formGroup]="userData" class="form" (ngSubmit)="onSubmit()">
         <div class="form-input-container">
         <div class="input-container">
             <label>First Name</label>
@@ -35,6 +35,10 @@
             <input type="text" formControlName="phoneNumber" placeholder="9876543210" class="form-input">
         </div>
         <div class="input-container">
+            <label>Reports To</label>
+            <input type="text" formControlName="managerId" placeholder="Ajay" class="form-input">
+        </div>
+        <div class="input-container">
             <label>Date of Birth</label>
             <input type="date" formControlName="dateOfBirth" class="form-input">
         </div>
@@ -44,13 +48,49 @@
         </div>
         <div class="input-container">
             <label>Designation</label>
-            <select name="designation" class="form-input">
+            <select formControlName="designation" class="form-input">
                 <option>Trainee</option>
                 <option>HR</option>
                 <option>Manager</option>
                 <option>Junior Developer</option>
                 <option>Senior Developer</option>
             </select>
+        </div>
+        <div class="input-container">
+            <label>Department</label>
+            <select formControlName="department" class="form-input">
+                <option>Engineering</option>
+                <option>Finance</option>
+                <option>Sales</option>
+                <option>Marketing</option>
+                <option>Devsecops</option>
+                <option>Product</option>
+                <option>People Function</option>
+            </select>
+        </div>
+        <div class="input-container">
+            <label>Roles</label>
+            <div class="multi-select">
+                <div class="selected-container">
+                <span class="selected-item" *ngFor="let role of roles.value">
+                    {{ role }}
+                    <span class="remove" (click)="removeRole(role)">×</span>
+                </span>
+                </div>
+            
+                <div class="dropdown-toggle" (click)="toggleDropdown()" #dropdown>
+                <span>Select Roles</span> 
+                <i class="fa-solid fa-angle-down"></i>
+                </div>
+            
+                <ul class="dropdown-list" *ngIf="dropdownOpen">
+                <li *ngFor="let role of roless" 
+                    [class.selected]="isSelected(role)"
+                    (click)="selectRole(role)">
+                    {{ role }}
+                </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="btn-container">

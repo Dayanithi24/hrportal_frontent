@@ -7,7 +7,7 @@
 }
 
 .form {
-    padding: 20px;
+    padding: 40px 20px;
     height: max-content;
     width: 80%;
     border-radius: 16px;
@@ -61,3 +61,76 @@
     gap: 20px;
 }
 
+.multi-select {
+    margin-top: 5px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .selected-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px;
+    width: 320px;
+  }
+  
+  .selected-item {
+    background-color: #FF0080;
+    color: white;
+    height: 20px;
+    padding: 2px 5px;
+    border-radius: 6px;
+    font-size: smaller;
+    display: flex;
+    align-items: center;
+  }
+  
+  .remove {
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    width: 28.5%;
+    border-radius: 6px;
+    font-size: smaller;
+    border: 1px solid #ccc;
+    background: white;
+    list-style: none;
+  }
+  
+  .dropdown-list li {
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .dropdown-list li:hover, .dropdown-list li.selected {
+    background: #FF0080;
+    color: white;
+  }
+  

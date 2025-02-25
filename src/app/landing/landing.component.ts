@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { RouterOutlet } from '@angular/router';
@@ -11,5 +11,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './landing.component.css'
 })
 export class LandingComponent {
+  isScrolling : boolean = false;
 
+  @HostListener('scroll')
+  onScroll() {
+    this.isScrolling = true;
+
+    setTimeout(() => {
+      this.isScrolling = false;
+    }, 100);
+  }
 }

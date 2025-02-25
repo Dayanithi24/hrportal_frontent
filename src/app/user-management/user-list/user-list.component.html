@@ -1,13 +1,63 @@
-<table class="user-table">
-    <tr class="user-table-row">
-        <th *ngFor="let key of objectKeys(profiles[0])" class="user-table-header user-table-cell">
-            {{key}}
-        </th>
-    </tr>
-    <tr *ngFor="let profile of profiles; let i = index" class="user-table-row">
-        <td *ngFor="let key of objectKeys(profile)" class="user-table-cell">
-            {{profile[key]}}
-        </td>
-    </tr>
-</table>
-<a routerLink="../create-user">Click</a>
+<div class="container">
+    <div class="container-header">
+        <h1>People</h1>
+    </div>
+    <div class="user-list-container">
+        <div class="user-list-header">
+            <p>Total</p>
+        </div>
+        <div class="user-table-container">
+            <div class="user-table-fixed">
+                <div class="user-table-row"></div>
+                <div *ngFor="let profile of profiles" class="user-table-row">
+                    <app-avatar  [userData]="{name: profile['name'], department: profile['department'], src: profile['src'] ?? null }"></app-avatar>
+                </div>
+            </div>
+            <div class="user-table-scrollable">
+                <table class="user-table">
+                    <tr class="user-table-row">
+                        <th class="user-table-header user-table-cell">Name</th>
+                        <th class="user-table-header user-table-cell">Department</th>
+                        <th class="user-table-header user-table-cell">designation</th>
+                        <th class="user-table-header user-table-cell">Date of Joining</th>
+                        <th class="user-table-header user-table-cell">Reports To</th>
+                        <th class="user-table-header user-table-cell">Location</th>
+                    </tr>
+                    <tr *ngFor="let profile of profiles; let i = index" class="user-table-row">
+                        <td class="user-table-cell"> {{profile['name']}} </td>
+                        <td class="user-table-cell"> {{profile['department']}} </td>
+                        <td class="user-table-cell"> {{profile['designation']}} </td>
+                        <td class="user-table-cell"> {{profile['start_date']}} </td>
+                        <td class="user-table-cell"> {{profile['reports_to']}} </td>
+                        <td class="user-table-cell"> {{profile['location']}} </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="user-list-footer">
+            <div class="page-size-container">
+                <div class="dropdown">
+                <div class="dropdown-toggle" (click)="toggleDropdown()" #dropdown>
+                    {{selectedSize.value}}
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                
+                <ul class="dropdown-list" *ngIf="dropdownOpen">
+                    <li *ngFor="let size of pageSizes" 
+                        (click)="selectSize(size)">
+                        {{ size }}
+                    </li>
+                </ul>
+            </div>
+                <label>Items Per Page</label>
+            </div>
+            <div class="page-traverse-container">
+                <span>Page {{1}} of {{4}}</span>
+                <div>
+                  <i aria-hidden="true" class="fa fa-chevron-left track-btn" (click)="decrementPage()"></i
+                  ><i aria-hidden="true" class="fa fa-chevron-right track-btn" (click)="incrementPage()"></i>
+                </div>
+        </div>
+    </div>
+</div>
+
