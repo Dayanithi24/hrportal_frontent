@@ -5,6 +5,7 @@
     width: 6vw;
     background-color: #FF0080;
     transition: width 0.8s ease-in-out;
+    z-index: 10;
 }
 
 .sidebar span {

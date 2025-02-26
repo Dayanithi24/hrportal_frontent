@@ -1,18 +1,14 @@
 <div class="user-card">
-    <div class="user-card-data">
     <div class="user-card-img-container">
         <img *ngIf="userData.src" [src]="userData.src" alt="profile" class="user-card-img">
         
         <div *ngIf="!userData.src" class="profile" [ngStyle]="{'background-color': avatarBgColor}">
-            {{userData.name.charAt(0).toUpperCase()}}
+            {{userData.firstName.charAt(0).toUpperCase() + userData.lastName.charAt(0).toUpperCase()}}
         </div>
     </div>
     <div class="user-card-content">
-        <h4>{{ userData.name }}</h4>
+        <h4>{{ userData.firstName + " " + userData.lastName }}</h4>
         <p>{{ userData.department }}</p>
     </div>
 </div>
-    <div class="view-container">
-        <i class="fa-solid fa-eye"></i>
-    </div>
-</div>
+

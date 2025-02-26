@@ -4,13 +4,19 @@
     </div>
     <div class="user-list-container">
         <div class="user-list-header">
-            <p>Total</p>
+            <p>Total : {{responseData.totalElements}}</p>
         </div>
         <div class="user-table-container">
             <div class="user-table-fixed">
                 <div class="user-table-row"></div>
-                <div *ngFor="let profile of profiles" class="user-table-row">
-                    <app-avatar  [userData]="{name: profile['name'], department: profile['department'], src: profile['src'] ?? null }"></app-avatar>
+                <div *ngFor="let user of responseData.content" class="user-table-row">
+                    <div class="user-card-container">
+                        <app-avatar  [userData]="user"></app-avatar>
+
+                        <div class="view-container">
+                            <i class="fa-solid fa-eye" (click)="loadProfile(user.id)"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="user-table-scrollable">
@@ -23,13 +29,13 @@
                         <th class="user-table-header user-table-cell">Reports To</th>
                         <th class="user-table-header user-table-cell">Location</th>
                     </tr>
-                    <tr *ngFor="let profile of profiles; let i = index" class="user-table-row">
-                        <td class="user-table-cell"> {{profile['name']}} </td>
-                        <td class="user-table-cell"> {{profile['department']}} </td>
-                        <td class="user-table-cell"> {{profile['designation']}} </td>
-                        <td class="user-table-cell"> {{profile['start_date']}} </td>
-                        <td class="user-table-cell"> {{profile['reports_to']}} </td>
-                        <td class="user-table-cell"> {{profile['location']}} </td>
+                    <tr *ngFor="let user of responseData.content; let i = index" class="user-table-row">
+                        <td class="user-table-cell"> {{user.firstName}} </td>
+                        <td class="user-table-cell"> {{user.department}} </td>
+                        <td class="user-table-cell"> {{user.designation}} </td>
+                        <td class="user-table-cell"> {{user.dateOfJoining}} </td>
+                        <td class="user-table-cell"> {{user.managerId}} </td>
+                        <td class="user-table-cell"> {{user.location}} </td>
                     </tr>
                 </table>
             </div>
@@ -52,7 +58,7 @@
                 <label>Items Per Page</label>
             </div>
             <div class="page-traverse-container">
-                <span>Page {{1}} of {{4}}</span>
+                <span>Page {{page + 1}} of {{responseData.totalPages}}</span>
                 <div>
                   <i aria-hidden="true" class="fa fa-chevron-left track-btn" (click)="decrementPage()"></i
                   ><i aria-hidden="true" class="fa fa-chevron-right track-btn" (click)="incrementPage()"></i>

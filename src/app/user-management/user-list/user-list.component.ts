@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { FetchService } from '../../services/fetch/fetch.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -9,7 +11,9 @@ import { FormControl } from '@angular/forms';
 })
 export class UserListComponent {
   pageSizes: Array<number> = [5, 10, 20];
+  page: number = 0;
   selectedSize = new FormControl(5);
+  responseData: any;
   dropdownOpen = false;
   @ViewChild('dropdown') dropDown: ElementRef | undefined;
 
@@ -57,12 +61,29 @@ export class UserListComponent {
     },
   ];
 
+  constructor(private fetchService: FetchService, private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.fetchService.getUsers(this.page, this.selectedSize.value)
+      .subscribe((data: any) => {
+        this.responseData = data;
+        console.log(this.responseData);
+      });
+  }
+
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
 
   selectSize(size: number) {
-    this.selectedSize.setValue(size);
+    if(size !== this.selectedSize.value) {
+      this.selectedSize.setValue(size);
+      this.fetchData();
+    }
   }
 
   toggleDropdown() {
@@ -79,10 +100,21 @@ export class UserListComponent {
   }
 
   incrementPage() {
-
+    if (!this.responseData.last) {
+      this.page++;
+      this.fetchData();
+    }
   }
-  
+
   decrementPage() {
-
+    if (!this.responseData.first) {
+      this.page--;
+      this.fetchData();
+    }
   }
+
+  loadProfile(id: string) {
+    this.router.navigate([`../profile/${id}`], {relativeTo: this.route});
+  }
+
 }

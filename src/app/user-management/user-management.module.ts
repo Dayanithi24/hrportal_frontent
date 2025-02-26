@@ -6,11 +6,13 @@ import { RouterModule, RouterLink } from '@angular/router';
 import { userManagementRoutes } from './user-management.routes';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { AvatarComponent } from "../avatar/avatar.component";
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 
 
 @NgModule({
-  declarations: [UserListComponent, CreateUserComponent,],
+  declarations: [UserListComponent, UserProfileComponent, CreateUserComponent, MyProfileComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(userManagementRoutes),

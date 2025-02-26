@@ -1,0 +1,51 @@
+.user-profile {
+
+}
+
+.user-profile-header {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #555;
+    border-bottom: 1px solid #ccc;
+}
+
+.user-profile-header-img-container {
+    height: 120px;
+    width: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.change-profile {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(118, 5, 5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    border-radius: 50%;
+}
+
+.user-profile-header-img-container img {
+    object-fit: cover;
+    border-radius: 50%;
+    height: inherit;
+    width: inherit;
+}
+
+.user-profile-header-data {
+    margin-left: px;
+}
+
+.user-profile-data {
+    padding: 20px;
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr;
+}

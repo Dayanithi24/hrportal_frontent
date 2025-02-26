@@ -4,20 +4,20 @@
         <div class="login-img-container">
             <h2>Login</h2>
         </div>
-        <div class="login-content-container">
+        <div class="login-content-container" [formGroup]="loginForm">
             <div class="input-container">
                 <div class="input-label-container">
                     <label>Email</label>
                     <span></span>
                 </div>
-                <input type="mail">
+                <input type="mail" formControlName="email">
             </div>
             <div class="input-container">
                 <div class="input-label-container">
                     <label>Password</label>
                 </div>
                 <div class="password-container">
-                    <input [type]="isEye ? 'password' : 'text'">
+                    <input [type]="isEye ? 'password' : 'text'" formControlName="password">
                     <i class="fa-solid {{isEye ? 'fa-eye' :'fa-eye-slash'}}" (click)="changePasswordType()"></i>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <span></span>
                 <a>Forget Password</a>
             </div>
-            <button class="login-btn">Log in</button>
+            <button class="login-btn" (click)="onLogin()">Log in</button>
         </div>
         <div class="line">
             
