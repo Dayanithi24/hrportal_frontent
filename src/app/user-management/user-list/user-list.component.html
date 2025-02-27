@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="isLoaded">
     <div class="container-header">
         <h1>People</h1>
     </div>
@@ -24,17 +24,20 @@
                     <tr class="user-table-row">
                         <th class="user-table-header user-table-cell">Name</th>
                         <th class="user-table-header user-table-cell">Department</th>
-                        <th class="user-table-header user-table-cell">designation</th>
+                        <th class="user-table-header user-table-cell">Designation</th>
                         <th class="user-table-header user-table-cell">Date of Joining</th>
                         <th class="user-table-header user-table-cell">Reports To</th>
                         <th class="user-table-header user-table-cell">Location</th>
                     </tr>
                     <tr *ngFor="let user of responseData.content; let i = index" class="user-table-row">
-                        <td class="user-table-cell"> {{user.firstName}} </td>
+                        <td class="user-table-cell"> {{user.firstName + " " + user.lastName}} </td>
                         <td class="user-table-cell"> {{user.department}} </td>
                         <td class="user-table-cell"> {{user.designation}} </td>
                         <td class="user-table-cell"> {{user.dateOfJoining}} </td>
-                        <td class="user-table-cell"> {{user.managerId}} </td>
+                        <td class="user-table-cell">
+                            <app-avatar [userData]="user.manager" *ngIf="user.manager"></app-avatar>
+                            <p *ngIf="!user.manager"> - </p>
+                        </td>
                         <td class="user-table-cell"> {{user.location}} </td>
                     </tr>
                 </table>

@@ -14,6 +14,7 @@ export class UserListComponent {
   page: number = 0;
   selectedSize = new FormControl(5);
   responseData: any;
+  isLoaded: boolean = false;
   dropdownOpen = false;
   @ViewChild('dropdown') dropDown: ElementRef | undefined;
 
@@ -71,12 +72,9 @@ export class UserListComponent {
     this.fetchService.getUsers(this.page, this.selectedSize.value)
       .subscribe((data: any) => {
         this.responseData = data;
+        this.isLoaded = true;
         console.log(this.responseData);
       });
-  }
-
-  objectKeys(obj: any): string[] {
-    return Object.keys(obj);
   }
 
   selectSize(size: number) {

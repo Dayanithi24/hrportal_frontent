@@ -12,11 +12,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AvatarComponent {
   @Input() userData: any;
   avatarBgColor!: string;
+  isProfile!: boolean;
 
   constructor() {}
 
   ngOnInit() {
     this.avatarBgColor = this.getRandomColor();
+    if(this.userData?.myFiles?.profile) {
+      this.isProfile = true;
+    }
+  }
+
+  getProfileImage() {
+    return localStorage.getItem("profileImage");
   }
 
   private getRandomColor(): string {

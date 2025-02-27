@@ -34,9 +34,17 @@
             <label>Phone Number</label>
             <input type="text" formControlName="phoneNumber" placeholder="9876543210" class="form-input">
         </div>
-        <div class="input-container">
+        <div class="input-container" style="position: relative;">
             <label>Reports To</label>
-            <input type="text" formControlName="managerId" placeholder="Ajay" class="form-input">
+            <input type="text" formControlName="managerId" placeholder="Ajay" class="form-input" 
+            (input)="onInput($event.target)" 
+            (focus)="showDropdown()"
+            (blur)="hideDropdown()" >
+            <ul class="dropdown-list-search" *ngIf="searchOpen">
+                <li *ngFor="let user of users">
+                    <app-avatar [userData]="user"></app-avatar>
+                </li>
+             </ul>
         </div>
         <div class="input-container">
             <label>Date of Birth</label>

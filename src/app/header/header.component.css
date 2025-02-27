@@ -1,4 +1,54 @@
 .header {
-    height: 10vh;
-    background-color: #FF0080;
+  height: 10vh;
+  background-color: #ff0080;
+}
+
+.header-content {
+  height: inherit;
+  width: 88%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-content h2 {
+    color: white;
+    font-weight: 600;
+}
+
+.avatar-container {
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  transition: width 0.5s ease-in-out;
+}
+
+.avatar-container img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.avatar-container span {
+  padding: 0 10px;
+}
+
+.avatar-container:hover {
+  width: 80px;
+}
+
+.logout-container {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

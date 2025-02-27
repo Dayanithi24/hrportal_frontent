@@ -22,4 +22,18 @@ export class FetchService {
   getUser(userId: string) {
     return this.http.get(`${this.baseUrl}user/${userId}`);
   }
+
+  uploadProfileImage(userId: string, imageFile: File) {
+    const formData = new FormData();
+    formData.append('img', imageFile); 
+    return this.http.put(`${this.baseUrl}user/profile/${userId}`, formData, {responseType: 'text'});
+  }
+
+  getProfileImage(id: string) {
+    return this.http.get(`${this.baseUrl}file/${id}`, { responseType: 'blob' });
+  }
+
+  searchUserByName(name: String) {
+    return this.http.get(`${this.baseUrl}user/search?name=${name}`);
+  }
 }

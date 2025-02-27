@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +11,17 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   
+  loadProfile() {
+    console.log('hi');
+    this.router.navigate(['home/user-management/my-profile']);
+  }
+
+  getProfileImage() {
+    return localStorage.getItem("profileImage");
+  }
+
   onLogout() {
     this.authService.logout();
   }

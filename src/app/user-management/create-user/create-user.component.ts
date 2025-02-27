@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { FetchService } from '../../services/fetch/fetch.service';
 
 @Component({
   selector: 'app-create-user',
@@ -12,9 +14,23 @@ export class CreateUserComponent {
   userData!: FormGroup;
   roless: string[] = ['admin', 'hr', 'manager', 'employee'];
   dropdownOpen = false; 
+  searchOpen = false;
   @ViewChild('dropdown') dropDown: ElementRef | undefined;
+  manager = new Subject<String>;
+  users: any;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private fetchService: FetchService) {
+    this.manager
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    )
+    .subscribe((name: String) => {
+      this.fetchService.searchUserByName(name).subscribe((data: any) => {
+        this.users = data;
+      })
+    });
+  }
 
   ngOnInit() {
     this.userData = this.formBuilder.group({
@@ -56,6 +72,14 @@ export class CreateUserComponent {
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
+
+  showDropdown() {
+    this.searchOpen = true;
+  }
+
+  hideDropdown() {
+    this.searchOpen = false;
+  }
   
   selectRole(role: string) {
     if (!this.isSelected(role)) {
@@ -72,6 +96,10 @@ export class CreateUserComponent {
   isSelected(role: string): boolean {
     let currentValues = this.roles.value || [];
     return currentValues.includes(role);
+  }
+
+  onInput(element: any) {
+    this.manager.next(element.value);
   }
 
   @HostListener('click', ['$event'])

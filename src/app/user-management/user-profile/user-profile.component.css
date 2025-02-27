@@ -1,0 +1,27 @@
+.user-profile-card {
+    height: 300px;
+    width: 350px;
+    box-shadow: 0 0 10px #666;
+}
+
+.user-profile-card-header {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #ccc;
+}
+
+.user-profile-card-header-img, .user-profile-card-header-img img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+
+}
+
+.user-profile-card-header-data {
+    
+}
+
+.user-profile-card-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

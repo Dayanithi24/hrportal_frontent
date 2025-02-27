@@ -33,6 +33,19 @@
     border-radius: 50%;
 }
 
+.change-profile input {
+    display: none; 
+}
+
+.change-profile label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
 .user-profile-header-img-container img {
     object-fit: cover;
     border-radius: 50%;
@@ -41,11 +54,12 @@
 }
 
 .user-profile-header-data {
-    margin-left: px;
+    margin-left: 0;
 }
 
 .user-profile-data {
     padding: 20px;
-     display: grid;
-     grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
 }

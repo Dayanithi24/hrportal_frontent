@@ -1,3 +1,11 @@
 <div class="header">
-    <button (click)="onLogout()">Logout</button>
+    <div class="header-content">
+        <h2>Hr Portal</h2>
+        <div class="avatar-container">
+            <img [src]="getProfileImage()" (click)="loadProfile()">
+            <div class="logout-container">
+                <i class="fa-solid fa-right-from-bracket" (click)="onLogout()"></i>
+            </div>
+        </div>
+    </div>
 </div>

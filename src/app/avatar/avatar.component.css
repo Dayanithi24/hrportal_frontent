@@ -18,16 +18,12 @@
   font-size: 14px;
 }
 
-.user-card-img-container {
+.user-card-img-container, .user-card-img {
   height: 40px;
   width: 40px;
   border-radius: 50%;
 }
 
-.user-card-img {
-  height: 100%;
-  width: 100%;
-}
 
 .profile {
   display: flex;
