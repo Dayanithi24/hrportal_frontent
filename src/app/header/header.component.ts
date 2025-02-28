@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,6 @@ export class HeaderComponent {
   constructor(private authService: AuthService, private router: Router) {}
   
   loadProfile() {
-    console.log('hi');
     this.router.navigate(['home/user-management/my-profile']);
   }
 
@@ -23,7 +23,23 @@ export class HeaderComponent {
   }
 
   onLogout() {
-    this.authService.logout();
+    Swal.fire({
+      title: 'Sure?',
+      text: 'Do you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Logout',
+      cancelButtonText: 'No, cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.logout();
+        Swal.fire({
+          title: "Logged Out Successfully",
+          icon: "success",
+        });
+        this.router.navigate(['login/'])
+      }
+    });
   }
 
 }

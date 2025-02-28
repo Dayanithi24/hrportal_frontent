@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserDataService } from '../../services/user-data/user-data.service';
 import { FetchService } from '../../services/fetch/fetch.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-my-profile',
@@ -25,9 +26,24 @@ export class MyProfileComponent {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      this.fetchService.uploadProfileImage(this.userData.id, file).subscribe((id) => {
-        this.userData.myFiles.profile = id;
-        this.userDataService.updateProfile(this.userData);
+      Swal.fire({
+        title: 'Sure?',
+        text: 'Once changed the previous profile image will be deleted',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Change',
+        cancelButtonText: 'No, cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.fetchService.uploadProfileImage(this.userData.id, file).subscribe((id) => {
+            this.userData.myFiles.profile = id;
+            this.userDataService.updateProfile(this.userData);
+            Swal.fire({
+              title: "Profile Changed Successfully",
+              icon: "success",
+            });
+          });
+        }
       });
     }
   }

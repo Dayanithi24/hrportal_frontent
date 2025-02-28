@@ -13,9 +13,11 @@ import { FetchService } from '../../services/fetch/fetch.service';
 export class CreateUserComponent {
   userData!: FormGroup;
   roless: string[] = ['admin', 'hr', 'manager', 'employee'];
+  selectedManager!: string;
   dropdownOpen = false; 
   searchOpen = false;
   @ViewChild('dropdown') dropDown: ElementRef | undefined;
+  @ViewChild('managerInput') managerInput: ElementRef | undefined;
   manager = new Subject<String>;
   users: any;
 
@@ -26,9 +28,12 @@ export class CreateUserComponent {
       distinctUntilChanged()
     )
     .subscribe((name: String) => {
-      this.fetchService.searchUserByName(name).subscribe((data: any) => {
-        this.users = data;
-      })
+      if(name.length >= 1){
+        this.searchOpen = true;
+        this.fetchService.searchUserByName(name).subscribe((data: any) => {
+          this.users = data;
+        })
+      }
     });
   }
 
@@ -76,10 +81,6 @@ export class CreateUserComponent {
   showDropdown() {
     this.searchOpen = true;
   }
-
-  hideDropdown() {
-    this.searchOpen = false;
-  }
   
   selectRole(role: string) {
     if (!this.isSelected(role)) {
@@ -98,6 +99,12 @@ export class CreateUserComponent {
     return currentValues.includes(role);
   }
 
+  setManager(user: any) {
+    this.userData.get('managerId')?.setValue(user.id);
+    this.selectedManager = `${user.firstName} ${user.lastName}`;
+    this.searchOpen = false;
+  }
+
   onInput(element: any) {
     this.manager.next(element.value);
   }
@@ -106,6 +113,10 @@ export class CreateUserComponent {
   onClick(event: Event) {
     if(event.target !== this.dropDown?.nativeElement && !this.dropDown?.nativeElement.contains(event.target))
       this.dropdownOpen = false;
-  }
+    if(event.target !== this.managerInput?.nativeElement){
+      console.log(event.target)
+      this.searchOpen= false;
+    }
+    }
 
 }

@@ -1,4 +1,7 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 
 export const customInterceptor: HttpInterceptorFn = (req, next) => {
   
@@ -6,6 +9,7 @@ export const customInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req.clone()); 
   }
 
+  const router = inject(Router);
   const token = localStorage.getItem('token');
 
   if (token && token !== 'null' && token !== 'undefined') {
@@ -14,5 +18,14 @@ export const customInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
-  return next(req);
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401 && error.error?.message === 'JWT_EXPIRED') {
+        console.warn('JWT expired, clearing session...');
+        localStorage.clear();  
+        router.navigate(['/login']);  
+      }
+      return throwError(() => error);
+  })
+  );
 };

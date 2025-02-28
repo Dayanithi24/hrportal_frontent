@@ -34,14 +34,19 @@
             <label>Phone Number</label>
             <input type="text" formControlName="phoneNumber" placeholder="9876543210" class="form-input">
         </div>
-        <div class="input-container" style="position: relative;">
+        <div class="input-container" style="position: relative;" >
             <label>Reports To</label>
-            <input type="text" formControlName="managerId" placeholder="Ajay" class="form-input" 
-            (input)="onInput($event.target)" 
-            (focus)="showDropdown()"
-            (blur)="hideDropdown()" >
+            <input type="text" 
+                placeholder="Ajay" 
+                class="form-input" 
+                [ngModel]="selectedManager" 
+                [ngModelOptions]="{standalone: true}" 
+                (input)="onInput($event.target)" 
+                (focus)="showDropdown()"
+                #managerInput
+                >
             <ul class="dropdown-list-search" *ngIf="searchOpen">
-                <li *ngFor="let user of users">
+                <li *ngFor="let user of users" (click)="setManager(user)">
                     <app-avatar [userData]="user"></app-avatar>
                 </li>
              </ul>

@@ -36,4 +36,17 @@ export class FetchService {
   searchUserByName(name: String) {
     return this.http.get(`${this.baseUrl}user/search?name=${name}`);
   }
+
+  forgetPassword(email: string) {
+    return this.http.post(`${this.baseUrl}user/forgot-password?email=${email}`, {}, {responseType: 'text'});
+  }
+
+  validateResetToken(token: string) {
+    return this.http.get(`${this.baseUrl}user/validate-reset-token?token=${token}`)
+  }
+
+  resetToken(token: string, password: string) {
+    return this.http.post(`${this.baseUrl}user/reset-password?token=${token}&newPassword=${password}`, {}, {responseType: 'text'});
+  }
+
 }
