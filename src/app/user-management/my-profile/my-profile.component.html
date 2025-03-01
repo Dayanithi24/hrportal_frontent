@@ -33,6 +33,14 @@
             <p>{{userData.email}}</p>
         </div>
         <div>
+            <h4>Gender</h4>
+            <p>{{userData.gender}}</p>
+        </div>
+        <div>
+            <h4>Mobile Number</h4>
+            <p>{{userData.phoneNumber}}</p>
+        </div>
+        <div>
             <h4>Department</h4>
             <p>{{userData.department}}</p>
         </div>
@@ -49,8 +57,17 @@
             <p>{{userData.dateOfBirth}}</p>
         </div>
         <div>
+            <h4>Age</h4>
+            <p>{{age}}</p>
+        </div>
+        <div>
+            <h4>Tenure </h4>
+            <p>{{duration}}</p>
+        </div>
+        <div>
             <h4>Reports To</h4>
-            <app-avatar [userData]="userData.manager"></app-avatar>
+            <app-avatar [userData]="userData.manager" *ngIf="userData.manager"></app-avatar>
+            <span *ngIf="!userData.manager" style="margin-left: 30px;"> - </span>
         </div>
     </div>
 </div>

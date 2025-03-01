@@ -9,7 +9,8 @@ export const routes: Routes = [
     {path: 'reset-password', title:'Reset-Password', component: ResetPasswordComponent},
     {path: 'home', component: LandingComponent, canActivate: [authGuard],
         children: [
-            {path: 'user-management', loadChildren: () => import('./user-management/user-management.module').then(c => c.UserManagementModule), canActivate: [authGuard]},
+            {path: 'user', loadChildren: () => import('./user-management/user-management.module').then(c => c.UserManagementModule), canActivate: [authGuard]},
+            {path: 'leave', loadChildren: () => import('./leave-management/leave-management.module').then(c => c.LeaveManagementModule), canActivate: [authGuard]},
         ]
     },
     { path: '', redirectTo: 'login', pathMatch: 'full' }, 

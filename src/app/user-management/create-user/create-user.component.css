@@ -135,7 +135,7 @@
     display: none;
   }
   
-  .dropdown-list, .dropdown-list-search li {
+  .dropdown-list li, .dropdown-list-search li {
     padding: 5px;
     cursor: pointer;
   }

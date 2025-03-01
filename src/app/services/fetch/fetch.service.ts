@@ -10,6 +10,10 @@ export class FetchService {
   constructor(private http: HttpClient) { 
     this.baseUrl = 'http://127.0.0.1:8080/';
   }
+
+  createUser(user: any) {
+    return this.http.post(`${this.baseUrl}user/`,user);
+  }
   
   getAllUsers() {
     return this.http.get(`${this.baseUrl}user/all`);

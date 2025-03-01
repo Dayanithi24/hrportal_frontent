@@ -1,0 +1,24 @@
+<div class="leave-profile" [class.active]="isTimeOff">
+    <div class="leave-profile-header">
+        <h1>Leave Profile</h1>
+        <button class="request-btn" routerLink="../request">Request Time Off</button>
+    </div>
+    <div class="line"></div>
+    <div class="leave-profile-body">
+        <div class="body-container">
+        <div class="leave-profile-body-navigate">
+            <button class="navigate-btn" [class.active] = "isBalancePage" (click)="openBalancePage()">Balance</button>
+            <button class="navigate-btn" [class.active] = "!isBalancePage" (click)="openRequestPage()">Requests</button>
+        </div>
+        <div class="leave-profile-body-content">
+           <app-my-balance *ngIf="isBalancePage"></app-my-balance>
+           <app-my-requests *ngIf="!isBalancePage"></app-my-requests>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- 
+<div class="leave-request" [class.active]="isTimeOff">
+    <app-leave-request (closeEvent)="onClose()"></app-leave-request>
+</div>
+ -->

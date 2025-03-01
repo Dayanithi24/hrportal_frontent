@@ -1,8 +1,8 @@
-<div class="container" *ngIf="isLoaded">
+<div class="container" *ngIf="isLoaded" >
     <div class="container-header">
         <h1>People</h1>
     </div>
-    <div class="user-list-container">
+    <div class="user-list-container" [ngClass]="isProfile ? 'active' : ''">
         <div class="user-list-header">
             <p>Total : {{responseData.totalElements}}</p>
         </div>
@@ -68,5 +68,9 @@
                 </div>
         </div>
     </div>
+</div>
+
+<div class="user-profile" [ngClass]="isProfile ? 'active' : ''">
+    <app-user-profile (closeEvent)="onClose()"></app-user-profile>
 </div>
 

@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class MyProfileComponent {
   userData: any;
+  age!: string;
+  duration!: string;
   subscription!: Subscription;
 
   constructor(private userDataService: UserDataService, private fetchService: FetchService) {}
@@ -19,10 +21,17 @@ export class MyProfileComponent {
   ngOnInit() {
     this.subscription = this.userDataService.currentUser.subscribe((data) => {
       this.userData = data;
-      console.log(this.userData);
+      this.age = this.getTimeDuration(Date.parse(this.userData.dateOfBirth));
+      this.duration = this.getTimeDuration(Date.parse(this.userData.dateOfJoining));
     })
   }
+  getTimeDuration(date: any) {
+    const time = (((Date.now() - date) / (1000 * 3600 * 24))/365.25);
+    const timeSplit = time.toFixed(5).split('.');
+    const decimalPart = timeSplit[1];
 
+    return `${timeSplit[0]} Years ${Math.round(parseFloat(`0.${decimalPart}`)* 12)} Months`
+  }
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {

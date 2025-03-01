@@ -5,7 +5,6 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 
 export const userManagementRoutes: Routes = [
-  { path: 'profile/:id', component: UserProfileComponent },
   { path: 'my-profile', component: MyProfileComponent },
   { path: 'list', component: UserListComponent },
   { path: '', redirectTo: 'list', pathMatch: 'full'}, 

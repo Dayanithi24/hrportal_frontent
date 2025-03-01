@@ -1,0 +1,96 @@
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.leave-profile {
+    padding: 10px;
+}
+
+.leave-profile.active {
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.leave-profile-header {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.leave-profile-header h1 {
+    color: #666;
+    font-weight: 600;
+}
+
+.leave-profile-body {
+    padding: 10px;
+    overflow-y: scroll;
+    height: 71vh;
+}
+
+.leave-profile-body::-webkit-scrollbar {
+    display: none;
+}
+
+.body-container {
+    height: max-content;
+}
+
+.leave-profile-body-navigate {
+    padding: 10px 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navigate-btn {
+    font-size: medium;
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.navigate-btn.active {
+    border-bottom: 2px solid salmon;
+}
+
+.leave-profile-body-content {
+}
+
+.leave-profile-body-content::-webkit-scrollbar {
+    display: none;
+}
+
+.request-btn {
+    padding: 8px 10px;
+    color: #FF0080;
+    border: 2px solid #FF0080;
+    background-color: transparent;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in;
+}
+
+.request-btn:hover {
+    background-color: #FF0080;
+    color: white;
+}
+
+.leave-request {
+    visibility: hidden;
+    position: absolute;
+    top: 10px;
+    left: 36%;
+    z-index: 2;
+  }
+
+.leave-request.active {
+    visibility: visible;
+}

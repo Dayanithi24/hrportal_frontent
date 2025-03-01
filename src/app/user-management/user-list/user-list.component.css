@@ -2,6 +2,12 @@
   padding: 20px;
 }
 
+.user-list-container.active {
+  filter: blur(20px);
+  pointer-events: none;
+  user-select: none;
+}
+
 .container-header {
   padding: 0 0 10px 0;
   border-bottom: 1px solid #ccc;
@@ -201,4 +207,16 @@
   .track-btn:active {
     background-color: #FF0080;
     color: #fff;
+  }
+
+  .user-profile {
+    visibility: hidden;
+    position: absolute;
+    top: 27%;
+    left: 36%;
+    z-index: 2;
+  }
+
+  .user-profile.active {
+    visibility: visible;
   }

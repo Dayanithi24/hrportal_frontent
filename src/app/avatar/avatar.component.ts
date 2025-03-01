@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FetchService } from '../services/fetch/fetch.service';
 
 @Component({
   selector: 'app-avatar',
@@ -14,7 +15,7 @@ export class AvatarComponent {
   avatarBgColor!: string;
   isProfile!: boolean;
 
-  constructor() {}
+  constructor(private fetchService: FetchService) {}
 
   ngOnInit() {
     this.avatarBgColor = this.getRandomColor();
@@ -23,9 +24,6 @@ export class AvatarComponent {
     }
   }
 
-  getProfileImage() {
-    return localStorage.getItem("profileImage");
-  }
 
   private getRandomColor(): string {
     const colors = [

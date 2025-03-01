@@ -1,8 +1,8 @@
 <div class="user-card">
     <div class="user-card-img-container">
-        <img *ngIf="isProfile" [src]="getProfileImage()" alt="profile" class="user-card-img">
+        <!-- <img *ngIf="isProfile" [src]="getProfileImage()" alt="profile" class="user-card-img"> -->
         
-        <div *ngIf="!isProfile" class="profile" [ngStyle]="{'background-color': avatarBgColor}">
+        <div class="profile" [ngStyle]="{'background-color': avatarBgColor}">
             {{userData.firstName.charAt(0).toUpperCase() + userData.lastName.charAt(0).toUpperCase()}}
         </div>
     </div>

@@ -2,23 +2,39 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UserDataService } from '../services/user-data/user-data.service';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  userData: any;
+  subsrciption!: Subscription;
+  isProfile!: boolean;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private userDataService: UserDataService) {}
+
+  ngOnInit() {
+    this.subsrciption = this.userDataService.currentUser.subscribe((data) => {
+      this.userData = data;
+    })
+  }
   
   loadProfile() {
     this.router.navigate(['home/user-management/my-profile']);
   }
-
+  
   getProfileImage() {
+    if(this.userData?.myFiles?.profile) {
+      this.isProfile = true;
+    }
+    else this.isProfile = false;
     return localStorage.getItem("profileImage");
   }
 

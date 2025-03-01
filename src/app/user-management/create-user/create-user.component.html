@@ -1,5 +1,5 @@
 <div class="form-container">
-    <form [formGroup]="userData" class="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="userData" class="form">
         <div class="form-input-container">
         <div class="input-container">
             <label>First Name</label>
@@ -98,8 +98,8 @@
             
                 <ul class="dropdown-list" *ngIf="dropdownOpen">
                 <li *ngFor="let role of roless" 
-                    [class.selected]="isSelected(role)"
-                    (click)="selectRole(role)">
+                    [class.selected]="isSelected(role.toUpperCase())"
+                    (click)="selectRole(role.toUpperCase())">
                     {{ role }}
                 </li>
                 </ul>
@@ -107,8 +107,8 @@
         </div>
     </div>
     <div class="btn-container">
-        <input type="reset" value="Reset" class="delete-btn">
-        <input type="submit" value="Create" class="success-btn">
+        <input type="reset" value="Reset" class="delete-btn" (click)="onReset($event)">
+        <input type="submit" value="Create" class="success-btn" (click)="onSubmit()">
     </div>
     </form>
 </div>

@@ -15,8 +15,11 @@ export class UserListComponent {
   selectedSize = new FormControl(5);
   responseData: any;
   isLoaded: boolean = false;
+  isProfile = false;
   dropdownOpen = false;
   @ViewChild('dropdown') dropDown: ElementRef | undefined;
+
+  // profileImageMap = new Map<string, string>();
 
   profiles: Array<{ [key: string]: any }> = [
     {
@@ -62,23 +65,49 @@ export class UserListComponent {
     },
   ];
 
-  constructor(private fetchService: FetchService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private fetchService: FetchService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.fetchData();
   }
 
   fetchData() {
-    this.fetchService.getUsers(this.page, this.selectedSize.value)
+    this.fetchService
+      .getUsers(this.page, this.selectedSize.value)
       .subscribe((data: any) => {
         this.responseData = data;
         this.isLoaded = true;
         console.log(this.responseData);
+        // this.loadProfileImages();
       });
   }
 
+  // loadProfileImages() {
+  //   this.responseData.content.forEach((user: any) => {
+  //     const imageId = user?.myFiles?.profile;
+
+  //     if (imageId && !this.profileImageMap.has(imageId)) {
+  //       this.fetchService.getProfileImage(imageId).subscribe((image: Blob) => {
+  //         const reader = new FileReader();
+  //         reader.onloadend = () => {
+  //           this.profileImageMap.set(imageId, reader.result as string);
+  //         };
+  //         reader.readAsDataURL(image);
+  //       });
+  //     }
+  //   });
+  // }
+
+  // getProfileImage(user: any) {
+  //   return this.profileImageMap.get(user?.myFiles?.profile);
+  // }
+
   selectSize(size: number) {
-    if(size !== this.selectedSize.value) {
+    if (size !== this.selectedSize.value) {
       this.selectedSize.setValue(size);
       this.fetchData();
     }
@@ -112,7 +141,10 @@ export class UserListComponent {
   }
 
   loadProfile(id: string) {
-    this.router.navigate([`../profile/${id}`], {relativeTo: this.route});
+    this.isProfile = true;
   }
 
+  onClose(){
+    this.isProfile = false;
+  }
 }

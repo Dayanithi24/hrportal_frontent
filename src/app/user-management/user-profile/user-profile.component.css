@@ -1,13 +1,20 @@
 .user-profile-card {
-    height: 300px;
+    position: relative;
+    min-height: 200px;
     width: 350px;
     box-shadow: 0 0 10px #666;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #fff;
 }
 
 .user-profile-card-header {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
     border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .user-profile-card-header-img, .user-profile-card-header-img img {
@@ -18,10 +25,25 @@
 }
 
 .user-profile-card-header-data {
-    
+    word-break: break-all;
 }
 
 .user-profile-card-main {
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+.close-btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #ddd;
+    box-sizing: border-box;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
 }

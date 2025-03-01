@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
+    @Output() closeEvent = new EventEmitter<void>();
 
+    onClose() {
+      this.closeEvent.emit();
+    }
 }
