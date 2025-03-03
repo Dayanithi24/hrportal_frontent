@@ -1,0 +1,45 @@
+.calendar {
+  text-align: center;
+}
+
+.months {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.month {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.month h3 {
+    margin-bottom: 10px;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 5px;
+  text-align: center;
+}
+
+.days span {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.days span:hover {
+    background-color: #FF0080;
+    color: #fff;
+}
+
+.days span.leave {
+  background-color: red;
+  color: white;
+}

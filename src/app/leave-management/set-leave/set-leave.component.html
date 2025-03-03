@@ -1,0 +1,15 @@
+<div class="calendar">
+    <h2>{{ currentYear }} Leave Calendar</h2>
+    <div class="months">
+      <div *ngFor="let month of monthNames; let m = index" class="month">
+        <h3>{{ month }}</h3>
+        <div class="days">
+            <span *ngFor="let day of weeks"> {{ day }}</span>
+            <span *ngFor="let _ of getStartDay(m + 1)"></span>
+            <span *ngFor="let day of getDaysInMonth(m, currentYear); let num = index">{{ num + 1 }} </span>
+        </div>
+      </div>
+    </div>
+    <button (click)="saveLeaves()">Save Leave Days</button>
+  </div>
+  

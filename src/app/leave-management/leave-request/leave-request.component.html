@@ -1,15 +1,14 @@
 <div class="container">
-    <div class="leave-request-card">
+    <div class="leave-request-card" [formGroup]="leaveForm">
         <div class="leave-request-card-header">
             <h2>Leave Request</h2>
         </div>
         <div class="line"></div>
         <div class="leave-request-content-container">
             <div class="leave-request-content">
-        </div>
             <div class="input-container">
                 <label>Leave Policy</label>
-                <select>
+                <select formControlName="leaveType">
                     <option>Sick Leave</option>
                     <option>Casual Leave</option>
                     <option>Loss of Pay</option>
@@ -21,31 +20,41 @@
                 <div class="date-container">
                     <div class="input-container">
                         <label>Start Date</label>
-                        <input type="date">
+                        <input type="date" [min]="today" formControlName="startDate">
                     </div>
                     <div class="input-container">
                         <label>End Date</label>
-                        <input type="date">
+                        <input type="date" [min]="leaveForm.controls['startDate'].value" formControlName="endDate">
                     </div>
                 </div>
-                <div class="input-container">
-                    <label>Duration</label>
-                    <select>
-                        <option>Half Day</option>
-                        <option>Full Day</option>
-                    </select>
+                <div class="date-container" *ngIf="isSameDate">
+                    <div class="input-container">
+                        <label>Duration</label>
+                        <select formControlName="duration" (change)="isHalfDay()">
+                            <option>Half Day</option>
+                            <option>Full Day</option>
+                        </select>
+                    </div>
+                    <div class="input-container" *ngIf="leaveForm.get('duration')?.value === 'Half Day'">
+                        <label>Session</label>
+                        <select formControlName="session">
+                            <option>Forenoon</option>
+                            <option>Afternoon</option>
+                        </select>
+                    </div>
+
                 </div>
-                <div class="date-container">
+                <div class="date-container" *ngIf="!isSameDate">
                     <div class="input-container">
                         <label>Start Duration</label>
-                        <select>
+                        <select formControlName="startDuration">
                             <option>Half Day</option>
                             <option>Full Day</option>
                         </select>
                     </div>
                     <div class="input-container">
                         <label>End Duration</label>
-                        <select>
+                        <select formControlName="endDuration">
                             <option>Half Day</option>
                             <option>Full Day</option>
                         </select>
@@ -55,15 +64,16 @@
             </div>
             <div class="input-container">
                 <label>Supporting Text</label>
-                <textarea></textarea>
+                <textarea formControlName="supportText"></textarea>
             </div>
             <div>
                 <label>Attach Document</label>
                 <input type="file">
             </div>
             <div>
-                <input type="submit" value="Submit" class="login-btn">
+                <input type="submit" value="Submit" class="login-btn" (click)="onSubmit()">
             </div>
+        </div>
         </div>
     </div>
     <div class="con1">10</div>
