@@ -34,6 +34,14 @@ export const routes: Routes = [
           ),
         canActivate: [authGuard],
       },
+      {
+        path: 'docs',
+        loadChildren: () =>
+          import('./doc-management/doc-management.module').then(
+            (c) => c.DocManagementModule
+          ),
+        canActivate: [authGuard],
+      },
     ],
   },
   {

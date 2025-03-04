@@ -1,0 +1,30 @@
+<div class="doc-container">
+    <div class="doc-header">
+        <h1 class="doc-header-title">My Documents</h1>
+        <div class="tooltip">
+            <input type="file" id="file" (change)="onFileSelected($event)" [multiple]="false" accept=".pdf" style="display: none;">
+            <label for="file" class="request-btn">Upload</label>
+            <span class="tooltip-text">Attach Document</span>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="doc-main">
+        <div class="doc-card" *ngFor="let file of userData.myFiles?.others">
+            <img src="pdf.png" alt="doc" class="doc-card-img">
+            <span (click)="openDocument(file)">{{file}}</span>
+            <i class="fa-solid fa-square-minus" (click)="deleteDoc(file)"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Document Viewer Modal -->
+<div class="doc-viewer" *ngIf="openedFileUrl">
+    <div class="doc-viewer-overlay" (click)="closeDocument()"></div>
+    <div class="doc-viewer-content">
+        <button class="close-btn" (click)="closeDocument()"><i class="fa-solid fa-close"></i></button>
+        <ngx-doc-viewer [url]="openedFileUrl" viewer="url" style="width: 900px; height: 580px;"></ngx-doc-viewer>
+        <!-- <pdf-viewer [src]="openedFileUrl"
+         style="width: 900px; height: 580px"
+  ></pdf-viewer> -->
+    </div>
+</div>

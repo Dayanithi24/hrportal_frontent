@@ -44,8 +44,22 @@ export class FetchService {
       responseType: 'text',
     });
   }
+  
+  uploadFile(userId: string, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.put(`${this.baseUrl}user/file/${userId}`, formData, {
+      responseType: 'text',
+    });
+  }
 
-  getProfileImage(id: string) {
+  deleteFile(userId: string, fileId: string) {
+    return this.http.delete(`${this.baseUrl}user/file/${userId}?fileId=${fileId}`, {
+      responseType: 'text',
+    });
+  }
+
+  getFile(id: string) {
     return this.http.get(`${this.baseUrl}file/${id}`, { responseType: 'blob' });
   }
 

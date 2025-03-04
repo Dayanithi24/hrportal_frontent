@@ -67,22 +67,6 @@
   display: none;
 }
 
-.request-btn {
-  padding: 8px 10px;
-  color: #ff0080;
-  border: 2px solid #ff0080;
-  background-color: transparent;
-  border-radius: 6px;
-  outline: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in;
-}
-
-.request-btn:hover {
-  background-color: #ff0080;
-  color: white;
-}
-
 .leave-request {
   visibility: hidden;
   position: absolute;

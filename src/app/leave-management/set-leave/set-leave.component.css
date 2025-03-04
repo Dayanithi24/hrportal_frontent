@@ -144,47 +144,7 @@
   color: white;
 }
 
-.tooltip {
-  position: relative;
-}
-
-.tooltip .tooltip-text {
-  visibility: hidden;
-  min-width: 50px;
-  width: max-content;
-  background-color: #666;
-  color: #fff;
-  text-align: center;
-  padding: 2px 5px;
-  font-size: small;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: -30px;
-  transform: translateX(-50%);
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-}
-
 .tooltip:hover.leave .tooltip-text {
   background-color: rgb(0, 133, 0);
 }
 
-.request-btn {
-  padding: 8px 10px;
-  color: #ff0080;
-  border: 2px solid #ff0080;
-  background-color: transparent;
-  border-radius: 6px;
-  outline: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in;
-}
-
-.request-btn:hover {
-  background-color: #ff0080;
-  color: white;
-}

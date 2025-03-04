@@ -50,7 +50,7 @@ export class UserDataService {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('userRoles', user.roles.toString());
     this.fetchService
-      .getProfileImage(user.myFiles.profile)
+      .getFile(user.myFiles.profile)
       .subscribe((image: any) => {
         const reader = new FileReader();
         reader.onload = () => {
