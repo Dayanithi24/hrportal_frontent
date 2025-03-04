@@ -5,29 +5,34 @@ import { Observable } from 'rxjs';
 import { UserDataService } from '../user-data/user-data.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   baseUrl!: string;
 
-  getUserRole() {
-    throw new Error('Method not implemented.');
-  }
-  isAuthenticated() {
-    throw new Error('Method not implemented.');
+  getUserRole(): string | null {
+    return localStorage.getItem('userRoles');
   }
 
-  constructor(private http: HttpClient, private router: Router, private userDataService: UserDataService) {
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userDataService: UserDataService
+  ) {
     this.baseUrl = 'http://127.0.0.1:8080/';
-   }
+  }
 
-  getAuthToken(obj: any) : Observable<any> {
+  getAuthToken(obj: any): Observable<any> {
     return this.http.post(`${this.baseUrl}authenticate/`, obj);
   }
 
   logout() {
-    localStorage.removeItem('token'); 
+    localStorage.removeItem('token');
     this.userDataService.clearProfile();
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
   }
 }

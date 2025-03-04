@@ -2,6 +2,9 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FetchService } from '../../services/fetch/fetch.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { routes } from '../../app.routes';
+import { AuthService } from '../../services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-list',
@@ -15,11 +18,11 @@ export class UserListComponent {
   selectedSize = new FormControl(5);
   responseData: any;
   isLoaded: boolean = false;
+  isAdmin: boolean = false;
   isProfile = false;
   dropdownOpen = false;
-  @ViewChild('dropdown') dropDown: ElementRef | undefined;
-
-  // profileImageMap = new Map<string, string>();
+  selectedUser: any;
+  @ViewChild('dropdown') dropDown!: ElementRef;
 
   profiles: Array<{ [key: string]: any }> = [
     {
@@ -67,12 +70,17 @@ export class UserListComponent {
 
   constructor(
     private fetchService: FetchService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.fetchData();
+    const roles = this.authService.getUserRole()?.split(',');
+    if (roles?.some((role) => ['ADMIN', 'HR'].includes(role))) {
+      this.isAdmin = true;
+    }
   }
 
   fetchData() {
@@ -81,30 +89,8 @@ export class UserListComponent {
       .subscribe((data: any) => {
         this.responseData = data;
         this.isLoaded = true;
-        console.log(this.responseData);
-        // this.loadProfileImages();
       });
   }
-
-  // loadProfileImages() {
-  //   this.responseData.content.forEach((user: any) => {
-  //     const imageId = user?.myFiles?.profile;
-
-  //     if (imageId && !this.profileImageMap.has(imageId)) {
-  //       this.fetchService.getProfileImage(imageId).subscribe((image: Blob) => {
-  //         const reader = new FileReader();
-  //         reader.onloadend = () => {
-  //           this.profileImageMap.set(imageId, reader.result as string);
-  //         };
-  //         reader.readAsDataURL(image);
-  //       });
-  //     }
-  //   });
-  // }
-
-  // getProfileImage(user: any) {
-  //   return this.profileImageMap.get(user?.myFiles?.profile);
-  // }
 
   selectSize(size: number) {
     if (size !== this.selectedSize.value) {
@@ -140,11 +126,43 @@ export class UserListComponent {
     }
   }
 
-  loadProfile(id: string) {
-    this.isProfile = true;
+  loadProfile(user: any) {
+    this.selectedUser = user;
+    setTimeout(() => (this.isProfile = true), 100);
   }
 
-  onClose(){
+  updateUser(user: any) {
+    this.router.navigate(['../update-user', user.id], {
+      state: { userData: user },
+      relativeTo: this.route,
+    });
+  }
+
+  onClose() {
     this.isProfile = false;
+  }
+
+  deleteUser(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to delete the user?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete!',
+      cancelButtonText: 'No, cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.fetchService.deleteUser(id).subscribe({
+          next: (data: any) => {
+            Swal.fire('Deleted Successfully!!', '', 'success').then((ok) => {
+              if (ok) this.fetchData();
+            });
+          },
+          error: (err: string | undefined) => {
+            Swal.fire('Error', err, 'error');
+          },
+        });
+      }
+    });
   }
 }

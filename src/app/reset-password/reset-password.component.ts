@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css'
+  styleUrl: './reset-password.component.css',
 })
 export class ResetPasswordComponent {
   isEye: boolean = true;
@@ -20,13 +20,17 @@ export class ResetPasswordComponent {
 
   passwordForm: FormGroup = new FormGroup({
     newPassword: new FormControl(''),
-    confirmPassword: new FormControl('')
-  })
+    confirmPassword: new FormControl(''),
+  });
 
-  constructor(private route: ActivatedRoute, private fetchService: FetchService, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private fetchService: FetchService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.token = this.route.snapshot.queryParams['token']; 
+    this.token = this.route.snapshot.queryParams['token'];
     if (this.token) {
       this.validateToken();
     } else {
@@ -39,33 +43,34 @@ export class ResetPasswordComponent {
   }
 
   validateToken() {
-    this.fetchService.validateResetToken(this.token)
-      .subscribe({
-        next: (res: any) => {
-          this.isValidToken = res.valid; 
-          console.log(res.valid);
-        },
-        error: (err) => {
-          this.isValidToken = false;
-          this.errorMessage = err.error.message || 'Invalid or expired token.';
-        }
-      });
+    this.fetchService.validateResetToken(this.token).subscribe({
+      next: (res: any) => {
+        this.isValidToken = res.valid;
+      },
+      error: (err) => {
+        this.isValidToken = false;
+        this.errorMessage = err.error.message || 'Invalid or expired token.';
+      },
+    });
   }
 
   changePassword() {
-    if(this.passwordForm.get('newPassword')?.value === this.passwordForm.get('confirmPassword')?.value){
-      this.fetchService.resetToken(this.token, this.passwordForm.get('newPassword')?.value).subscribe((data) => {
-        if(data)
-          Swal.fire("Success", data, "success").then((ok) => {
-            if(ok) {
-              this.router.navigate(['/login']);
-            }
-          });
-      })
-    }
-    else {
-      Swal.fire("Error", "Password Mismatch", "error");
+    if (
+      this.passwordForm.get('newPassword')?.value ===
+      this.passwordForm.get('confirmPassword')?.value
+    ) {
+      this.fetchService
+        .resetToken(this.token, this.passwordForm.get('newPassword')?.value)
+        .subscribe((data) => {
+          if (data)
+            Swal.fire('Success', data, 'success').then((ok) => {
+              if (ok) {
+                this.router.navigate(['/login']);
+              }
+            });
+        });
+    } else {
+      Swal.fire('Error', 'Password Mismatch', 'error');
     }
   }
-
 }

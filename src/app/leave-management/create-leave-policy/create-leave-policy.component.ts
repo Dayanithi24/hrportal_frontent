@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   selector: 'app-create-leave-policy',
   standalone: false,
   templateUrl: './create-leave-policy.component.html',
-  styleUrl: './create-leave-policy.component.css'
+  styleUrl: './create-leave-policy.component.css',
 })
 export class CreateLeavePolicyComponent {
   leavePolicy!: FormGroup;
@@ -27,7 +27,6 @@ export class CreateLeavePolicyComponent {
       createdBy: [''],
       startDate: [''],
       endDate: [''],
-    })
+    });
   }
-  
 }

@@ -27,10 +27,6 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  // ngOnInit() {
-  //   this.authService.logout();
-  // }
-
   changePasswordType() {
     this.isEye = !this.isEye;
   }

@@ -80,7 +80,8 @@ select {
   cursor: pointer;
 }
 
-.mat-datepicker-toggle, .mat-mdc-floating-label.mdc-floating-label--float-above {
+.mat-datepicker-toggle,
+.mat-mdc-floating-label.mdc-floating-label--float-above {
   color: #ff0080 !important;
 }
 
@@ -114,7 +115,8 @@ select {
   color: #ffffff !important;
 }
 
-.mat-mdc-form-field-flex, .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+.mat-mdc-form-field-flex,
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: #fff !important;
 }
 

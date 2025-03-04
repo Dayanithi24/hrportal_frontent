@@ -22,6 +22,7 @@
   background-color: #888;
 }
 
-.content::-webkit-scrollbar-thumb:hover, .scrolling::-webkit-scrollbar-thumb {
+.content::-webkit-scrollbar-thumb:hover,
+.scrolling::-webkit-scrollbar-thumb {
   background-color: #555;
 }

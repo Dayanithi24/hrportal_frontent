@@ -1,6 +1,7 @@
 <div class="container" *ngIf="isLoaded" >
     <div class="container-header">
         <h1>People</h1>
+        <button class="request-btn" routerLink="../create-user" *ngIf="isAdmin">Add Employee</button>
     </div>
     <div class="user-list-container" [ngClass]="isProfile ? 'active' : ''">
         <div class="user-list-header">
@@ -11,10 +12,14 @@
                 <div class="user-table-row"></div>
                 <div *ngFor="let user of responseData.content" class="user-table-row">
                     <div class="user-card-container">
-                        <app-avatar  [userData]="user"></app-avatar>
-
-                        <div class="view-container">
-                            <i class="fa-solid fa-eye" (click)="loadProfile(user.id)"></i>
+                        <app-avatar [userData]="user" (click)="loadProfile(user)" style="cursor: pointer;"></app-avatar>
+                        <div class="view-container" *ngIf="isAdmin">
+                            <div class="icon-container" (click)="updateUser(user)">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                            <div class="icon-container" (click)="deleteUser(user.id)">
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,6 +76,6 @@
 </div>
 
 <div class="user-profile" [ngClass]="isProfile ? 'active' : ''">
-    <app-user-profile (closeEvent)="onClose()"></app-user-profile>
+    <app-user-profile [userData]="selectedUser" (closeEvent)="onClose()"></app-user-profile>
 </div>
 

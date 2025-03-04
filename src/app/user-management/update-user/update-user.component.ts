@@ -1,18 +1,19 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { FetchService } from '../../services/fetch/fetch.service';
 import Swal from 'sweetalert2';
+import { FetchService } from '../../services/fetch/fetch.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-user',
+  selector: 'app-update-user',
   standalone: false,
-  templateUrl: './create-user.component.html',
-  styleUrl: './create-user.component.css',
+  templateUrl: './update-user.component.html',
+  styleUrl: './update-user.component.css',
 })
-export class CreateUserComponent {
-  userData!: FormGroup;
+export class UpdateUserComponent {
+  userForm!: FormGroup;
+  userData!: any;
   roless: string[] = ['admin', 'hr', 'manager', 'employee'];
   selectedManager!: string;
   dropdownOpen = false;
@@ -40,24 +41,28 @@ export class CreateUserComponent {
   }
 
   ngOnInit() {
-    this.userData = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      location: [''],
-      phoneNumber: [''],
-      gender: [''],
-      dateOfBirth: [''],
-      roles: [[]],
-      dateOfJoining: [''],
-      designation: [''],
-      department: [''],
-      managerId: [''],
+    this.userData = history.state.userData;
+    this.userForm = this.formBuilder.group({
+      firstName: [this.userData.firstName],
+      lastName: [this.userData.lastName],
+      email: [this.userData.email],
+      location: [this.userData.location],
+      phoneNumber: [this.userData.phoneNumber],
+      gender: [this.userData.gender],
+      dateOfBirth: [this.userData.dateOfBirth],
+      roles: [this.userData.roles],
+      dateOfJoining: [this.userData.dateOfJoining],
+      designation: [this.userData.designation],
+      department: [this.userData.department],
+      managerId: [this.userData.manager ? this.userData.manager.id : ''],
     });
+    this.selectedManager = this.userData.manager
+      ? `${this.userData.manager.firstName} ${this.userData.manager.lastName}`
+      : '';
   }
 
   get roles(): FormArray {
-    return this.userData.get('roles') as FormArray;
+    return this.userForm.get('roles') as FormArray;
   }
 
   onCheckboxChange(event: Event) {
@@ -84,13 +89,14 @@ export class CreateUserComponent {
       cancelButtonText: 'No, cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userData.reset();
+        this.selectedManager = '';
+        this.userForm.reset();
       }
     });
   }
 
   onSubmit() {
-    if (this.userData.invalid) {
+    if (this.userForm.invalid) {
       Swal.fire({
         title: 'Validation Error!',
         text: 'Please fill in all required fields correctly.',
@@ -101,23 +107,25 @@ export class CreateUserComponent {
 
     Swal.fire({
       title: 'Are you sure?',
-      text: 'Do you want to submit the form?',
+      text: 'Do you want to update the user?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Yes, submit!',
+      confirmButtonText: 'Yes, update!',
       cancelButtonText: 'No, cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.fetchService.createUser(this.userData.value).subscribe({
-          next: (data) => {
-            Swal.fire('Submitted Successfully!!', '', 'success').then((ok) => {
-              if (ok) this.router.navigate(['home/user']);
-            });
-          },
-          error: (err) => {
-            Swal.fire('Error', err, 'error');
-          },
-        });
+        this.fetchService
+          .updateUser(this.userForm.value, this.userData.id)
+          .subscribe({
+            next: (data: any) => {
+              Swal.fire('Updated Successfully!!', '', 'success').then((ok) => {
+                if (ok) this.router.navigate(['home/user']);
+              });
+            },
+            error: (err: string | undefined) => {
+              Swal.fire('Error', err, 'error');
+            },
+          });
       }
     });
   }
@@ -148,7 +156,7 @@ export class CreateUserComponent {
   }
 
   setManager(user: any) {
-    this.userData.get('managerId')?.setValue(user.id);
+    this.userForm.get('managerId')?.setValue(user.id);
     this.selectedManager = `${user.firstName} ${user.lastName}`;
     this.searchOpen = false;
   }

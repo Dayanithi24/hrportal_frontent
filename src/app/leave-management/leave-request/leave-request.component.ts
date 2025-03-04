@@ -6,14 +6,14 @@ import Swal from 'sweetalert2';
   selector: 'app-leave-request',
   standalone: false,
   templateUrl: './leave-request.component.html',
-  styleUrl: './leave-request.component.css'
+  styleUrl: './leave-request.component.css',
 })
 export class LeaveRequestComponent {
   leaveForm!: FormGroup;
   isSameDate = false;
   today!: string;
   @Output() closeEvent = new EventEmitter();
-  
+
   constructor(private formBuider: FormBuilder) {
     this.leaveForm = this.formBuider.group({
       leaveType: ['', Validators.required],
@@ -24,25 +24,28 @@ export class LeaveRequestComponent {
       startDuration: [''],
       endDuration: [''],
       supportText: [''],
-    })
+    });
   }
-  
+
   ngOnInit() {
     this.today = new Date().toISOString().split('T')[0];
-    this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.checkDateCondition());
-    this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.checkDateCondition());
+    this.leaveForm
+      .get('startDate')
+      ?.valueChanges.subscribe(() => this.checkDateCondition());
+    this.leaveForm
+      .get('endDate')
+      ?.valueChanges.subscribe(() => this.checkDateCondition());
   }
-  
+
   checkDateCondition() {
     const startDate = this.leaveForm.get('startDate')?.value;
     const endDate = this.leaveForm.get('endDate')?.value;
 
     if (!startDate && endDate) {
       setTimeout(() => this.leaveForm.get('endDate')?.setValue(''), 0);
-      Swal.fire("Warning", "Fill the Starting Date First", "warning");
+      Swal.fire('Warning', 'Fill the Starting Date First', 'warning');
       return;
     }
-
 
     this.isSameDate = startDate === endDate;
 
@@ -69,16 +72,15 @@ export class LeaveRequestComponent {
     this.leaveForm.get('startDuration')?.updateValueAndValidity();
     this.leaveForm.get('endDuration')?.updateValueAndValidity();
   }
-  
+
   isHalfDay() {
     if (this.leaveForm.get('duration')?.value === 'Half Day') {
       this.leaveForm.get('session')?.setValidators([Validators.required]);
-    }
-    else {
+    } else {
       this.leaveForm.get('session')?.reset();
       this.leaveForm.get('session')?.clearValidators();
     }
-    
+
     this.leaveForm.get('session')?.updateValueAndValidity();
   }
 
@@ -88,9 +90,8 @@ export class LeaveRequestComponent {
 
   onSubmit() {
     if (this.leaveForm.invalid) {
-      Swal.fire("Error", "Please fill all required fields", "error");
+      Swal.fire('Error', 'Please fill all required fields', 'error');
       return;
     }
-    console.log(this.leaveForm.value);
   }
 }

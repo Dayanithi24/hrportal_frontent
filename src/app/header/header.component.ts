@@ -11,31 +11,34 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
   userData: any;
   subsrciption!: Subscription;
   isProfile!: boolean;
 
-  constructor(private authService: AuthService, private router: Router, private userDataService: UserDataService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private userDataService: UserDataService
+  ) {}
 
   ngOnInit() {
     this.subsrciption = this.userDataService.currentUser.subscribe((data) => {
       this.userData = data;
-    })
+    });
   }
-  
+
   loadProfile() {
-    this.router.navigate(['home/user-management/my-profile']);
+    this.router.navigate(['home/user/my-profile']);
   }
-  
+
   getProfileImage() {
-    if(this.userData?.myFiles?.profile) {
+    if (this.userData?.myFiles?.profile) {
       this.isProfile = true;
-    }
-    else this.isProfile = false;
-    return localStorage.getItem("profileImage");
+    } else this.isProfile = false;
+    return localStorage.getItem('profileImage');
   }
 
   onLogout() {
@@ -50,12 +53,11 @@ export class HeaderComponent {
       if (result.isConfirmed) {
         this.authService.logout();
         Swal.fire({
-          title: "Logged Out Successfully",
-          icon: "success",
+          title: 'Logged Out Successfully',
+          icon: 'success',
         });
-        this.router.navigate(['login/'])
+        this.router.navigate(['login/']);
       }
     });
   }
-
 }

@@ -19,11 +19,10 @@ export class AvatarComponent {
 
   ngOnInit() {
     this.avatarBgColor = this.getRandomColor();
-    if(this.userData?.myFiles?.profile) {
+    if (this.userData?.myFiles?.profile) {
       this.isProfile = true;
     }
   }
-
 
   private getRandomColor(): string {
     const colors = [
@@ -37,5 +36,4 @@ export class AvatarComponent {
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
-
 }

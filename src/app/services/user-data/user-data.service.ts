@@ -10,11 +10,11 @@ interface UserProfile {
   gender: string;
   phoneNumber: string;
   location: string;
-  dateOfBirth: string; // Use string for LocalDate
+  dateOfBirth: string;
   roles: string[];
   designation: string;
   department: string;
-  dateOfJoining: string; // Use string for LocalDate
+  dateOfJoining: string;
   remainingCasualLeaves: number;
   remainingSickLeaves: number;
   remainingWorkFromHome: number;
@@ -48,13 +48,16 @@ export class UserDataService {
   updateProfile(user: UserProfile) {
     this.profileSubject.next(user);
     localStorage.setItem('user', JSON.stringify(user));
-    this.fetchService.getProfileImage(user.myFiles.profile).subscribe((image: any) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem('profileImage', reader.result as string);
-      };
-      reader.readAsDataURL(image);
-    });
+    localStorage.setItem('userRoles', user.roles.toString());
+    this.fetchService
+      .getProfileImage(user.myFiles.profile)
+      .subscribe((image: any) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          localStorage.setItem('profileImage', reader.result as string);
+        };
+        reader.readAsDataURL(image);
+      });
   }
 
   getProfile(): UserProfile | null {
@@ -64,6 +67,7 @@ export class UserDataService {
   clearProfile() {
     this.profileSubject.next(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('userRoles');
     localStorage.removeItem('profileImage');
   }
 }

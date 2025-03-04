@@ -1,15 +1,37 @@
 <div class="calendar">
+  <div class=" calendar-header">
     <h2>{{ currentYear }} Leave Calendar</h2>
+    <button (click)="saveLeaves()" class="request-btn">Save Leave Days</button>
+  </div>
     <div class="months">
       <div *ngFor="let month of monthNames; let m = index" class="month">
         <h3>{{ month }}</h3>
         <div class="days">
-            <span *ngFor="let day of weeks"> {{ day }}</span>
+            <span *ngFor="let day of weeks; let i = index" class="week-day" (click)="markAllDays(i, m)"> {{ day }}</span>
             <span *ngFor="let _ of getStartDay(m + 1)"></span>
-            <span *ngFor="let day of getDaysInMonth(m, currentYear); let num = index">{{ num + 1 }} </span>
+            <div *ngFor="let day of getDaysInMonth(m, currentYear); let num = index"
+              class="date tooltip"
+              [class.leave]="leaveDays.has(generateDateKey(m, num + 1))"
+              (click)="openPopup(m, num + 1)"
+            >{{ num + 1 }}
+              <span class="tooltip-text">{{leaveDays.get(generateDateKey(m, num + 1)) ?? 'No Event'}}</span>
+          </div>
+          </div>
         </div>
       </div>
+</div>
+
+<div *ngIf="showPopup" class="popup-overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <h3>{{ selectedDate }}</h3>
+      <i class="fa-solid fa-close" (click)="closePopup()"></i>
     </div>
-    <button (click)="saveLeaves()">Save Leave Days</button>
+    <input type="text" [(ngModel)]="leaveName" placeholder="Enter leave name" />
+    <div class="btn-container">
+      <button class="save-btn" (click)="saveLeave()">Save</button>
+      <button class="del-btn" (click)="clearLeave()">Clear</button>
+    </div>
   </div>
-  
+</div>
+

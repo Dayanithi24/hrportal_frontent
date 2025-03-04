@@ -9,10 +9,10 @@ import { FetchService } from '../services/fetch/fetch.service';
   standalone: true,
   imports: [HeaderComponent, SideBarComponent, RouterOutlet],
   templateUrl: './landing.component.html',
-  styleUrl: './landing.component.css'
+  styleUrl: './landing.component.css',
 })
 export class LandingComponent {
-  isScrolling : boolean = false;
+  isScrolling: boolean = false;
 
   @HostListener('scroll')
   onScroll() {

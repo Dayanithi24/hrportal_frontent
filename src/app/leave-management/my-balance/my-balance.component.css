@@ -1,49 +1,48 @@
 .balance-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .line {
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
 }
 
 .leave-card {
-    height: 300px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #eee;
+  height: 300px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #eee;
 }
 
 .leave-card-header {
-    font-weight: 500;
-    color: white;
-    text-align: center;
-    padding: 30px 20px;
-    border-radius: 20px 20px 0 0;
-    /* border-radius: 20px 20px 50% 50%; */
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 20px 20px 0 0;
 }
 
 .leave-card-table {
-    margin: 0 10px;
-    display: grid;
-    grid-template-columns: 5fr 1fr 1fr;
-    gap: 10px;
-    padding: 10px;
+  margin: 0 10px;
+  display: grid;
+  grid-template-columns: 5fr 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
 }
 
 .leave-card-table span {
-    text-align: center;
+  text-align: center;
 }
 
 .fill {
-    flex-grow: 1;
-    height: 80px;
-    border-radius: 50% 50% 20px 20px;
+  flex-grow: 1;
+  height: 80px;
+  border-radius: 50% 50% 20px 20px;
 }
