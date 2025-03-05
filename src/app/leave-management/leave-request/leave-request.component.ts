@@ -1,6 +1,13 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CalendarOptions } from '@fullcalendar/core/index.js';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import listPlugin from '@fullcalendar/list'
 import Swal from 'sweetalert2';
+import { LeaveService } from '../../services/leave/leave.service';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-leave-request',
@@ -14,7 +21,26 @@ export class LeaveRequestComponent {
   today!: string;
   @Output() closeEvent = new EventEmitter();
 
-  constructor(private formBuider: FormBuilder) {
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
+  events: any[] = []; 
+
+  calendarOptions: CalendarOptions = {
+    plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    initialView: 'dayGridMonth',
+    events: [],
+    datesSet: this.loadEvents.bind(this),
+  };
+
+  constructor(
+    private formBuider: FormBuilder, 
+    private leaveService: LeaveService,
+    private changeDetector: ChangeDetectorRef, 
+  ) {
     this.leaveForm = this.formBuider.group({
       leaveType: ['', Validators.required],
       startDate: ['', Validators.required],
@@ -28,6 +54,7 @@ export class LeaveRequestComponent {
   }
 
   ngOnInit() {
+    this.loadEvents();
     this.today = new Date().toISOString().split('T')[0];
     this.leaveForm
       .get('startDate')
@@ -35,6 +62,25 @@ export class LeaveRequestComponent {
     this.leaveForm
       .get('endDate')
       ?.valueChanges.subscribe(() => this.checkDateCondition());
+  }
+
+  loadEvents() {
+    if (!this.calendarComponent) {
+      return;
+    }
+    const calendarApi = this.calendarComponent.getApi(); 
+    const view = calendarApi.view;
+    const currentYear = view.currentStart.getFullYear();
+    const currentMonth = view.currentStart.getMonth() + 1; 
+    this.leaveService.getEvents(currentYear, currentMonth).subscribe((events : any) => {
+      this.events = events.map((event: any) => ({
+        ...event,
+        start: new Date(event.start).toISOString(),  
+        end: new Date(event.end).toISOString()
+      }));
+      this.calendarOptions.events = [...this.events]; 
+      this.changeDetector.detectChanges();
+    });
   }
 
   checkDateCondition() {

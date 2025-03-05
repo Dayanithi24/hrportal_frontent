@@ -15,7 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { SetLeaveComponent } from './set-leave/set-leave.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { LeaveCalenderComponent } from './leave-calender/leave-calender.component';
+import { LeaveCalendarComponent } from './leave-calender/leave-calender.component';
 
 @NgModule({
   declarations: [
@@ -25,18 +25,18 @@ import { LeaveCalenderComponent } from './leave-calender/leave-calender.componen
     SetLeaveComponent,
     MyBalanceComponent,
     MyRequestsComponent,
-    LeaveCalenderComponent,
+    LeaveCalendarComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(leaveManagementRoutes),
     FormsModule,
     ReactiveFormsModule,
-
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
     FullCalendarModule,
   ],
+  exports: []
 })
 export class LeaveManagementModule {}

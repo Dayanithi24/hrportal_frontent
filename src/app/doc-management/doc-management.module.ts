@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { MyDocComponent } from './my-doc/my-doc.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer'
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AllDocsComponent } from './all-docs/all-docs.component';
 
 
 @NgModule({
-  declarations: [MyDocComponent],
+  declarations: [MyDocComponent, AllDocsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(docManagementRoutes),

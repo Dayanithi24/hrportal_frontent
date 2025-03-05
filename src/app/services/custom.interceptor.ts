@@ -5,7 +5,7 @@ import { catchError, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 
 export const customInterceptor: HttpInterceptorFn = (req, next) => {
-  if (req.url.includes('/authenticate/')) {
+  if (req.url.includes('v1/api/authenticate/')) {
     return next(req.clone());
   }
 

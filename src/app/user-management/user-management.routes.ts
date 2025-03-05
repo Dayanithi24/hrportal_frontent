@@ -6,7 +6,7 @@ import { roleGuard } from '../guards/role/role.guard';
 import { UpdateUserComponent } from './update-user/update-user.component';
 
 export const userManagementRoutes: Routes = [
-  { path: 'my-profile', component: MyProfileComponent },
+  { path: 'profile/:id', component: MyProfileComponent },
   { path: 'list', component: UserListComponent },
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   {

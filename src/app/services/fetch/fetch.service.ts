@@ -8,7 +8,7 @@ export class FetchService {
   baseUrl!: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://127.0.0.1:8080/';
+    this.baseUrl = 'http://127.0.0.1:8080/v1/api/';
   }
 
   createUser(user: any) {

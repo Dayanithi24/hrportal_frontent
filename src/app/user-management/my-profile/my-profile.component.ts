@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, switchMap } from 'rxjs';
 import { UserDataService } from '../../services/user-data/user-data.service';
 import { FetchService } from '../../services/fetch/fetch.service';
 import Swal from 'sweetalert2';
@@ -14,7 +14,7 @@ export class MyProfileComponent {
   userData: any;
   age!: string;
   duration!: string;
-  subscription!: Subscription;
+  openedFileUrl: string | null = null;
 
   constructor(
     private userDataService: UserDataService,
@@ -22,13 +22,12 @@ export class MyProfileComponent {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.userDataService.currentUser.subscribe((data) => {
-      this.userData = data;
-      this.age = this.getTimeDuration(Date.parse(this.userData.dateOfBirth));
-      this.duration = this.getTimeDuration(
-        Date.parse(this.userData.dateOfJoining)
-      );
-    });
+    this.userData = history.state.userData;
+    this.age = this.getTimeDuration(Date.parse(this.userData.dateOfBirth));
+    this.duration = this.getTimeDuration(
+      Date.parse(this.userData.dateOfJoining)
+    );
+    this.getProfileImage();
   }
   getTimeDuration(date: any) {
     const time = (Date.now() - date) / (1000 * 3600 * 24) / 365.25;
@@ -66,15 +65,29 @@ export class MyProfileComponent {
     }
   }
 
+  getFile(): Observable<string> {
+    return this.fetchService.getFile(this.userData.myFiles.profile).pipe(
+      switchMap((file: Blob) => {
+        return new Observable<string>((observer) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result as string;
+            observer.next(result);
+            observer.complete();
+          };
+          reader.readAsDataURL(file);
+        });
+      })
+    );
+  }
+
   getProfileImage() {
-    return localStorage.getItem('profileImage');
+    this.getFile().subscribe((fileBase64) => {
+      this.openedFileUrl = fileBase64;
+    });
   }
 
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) this.subscription.unsubscribe();
   }
 }

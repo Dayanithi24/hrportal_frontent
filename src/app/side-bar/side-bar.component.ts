@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -9,7 +10,16 @@ import { RouterLink } from '@angular/router';
   styleUrl: './side-bar.component.css'
 })
 export class SideBarComponent {
+  
+  isAdmin: boolean = false;
+  constructor(private authService: AuthService) {}
 
+  ngOnInit() {
+    const roles = this.authService.getUserRole()?.split(',');
+    if (roles?.some((role) => ['ADMIN', 'HR'].includes(role))) {
+      this.isAdmin = true;
+    }
+  }
   isCollapsed: boolean = true;
 
   @HostListener('mouseenter') onMouseEnter() {
@@ -19,5 +29,6 @@ export class SideBarComponent {
   @HostListener('mouseleave') onMouseLeave() {
     this.isCollapsed = true; 
   }
+  
   
 }

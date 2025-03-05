@@ -1,18 +1,25 @@
 <div class="leave-profile" [class.active]="isTimeOff">
     <div class="leave-profile-header">
         <h1>Leave Profile</h1>
-        <button class="request-btn" routerLink="../request">Request Time Off</button>
+        <div class="header-btn-container">
+            <div class="tooltip" *ngIf="isAdmin">
+                <img src="calendar.png" alt="leave-calendar" routerLink="../leave-calendar">
+                <span class="tooltip-text">Leave Calendar</span>
+            </div>
+            <button class="request-btn" routerLink="../request">Request Time Off</button>
+        </div>
     </div>
     <div class="line"></div>
     <div class="leave-profile-body">
         <div class="body-container">
         <div class="leave-profile-body-navigate">
-            <button class="navigate-btn" [class.active] = "isBalancePage" (click)="openBalancePage()">Balance</button>
-            <button class="navigate-btn" [class.active] = "!isBalancePage" (click)="openRequestPage()">Requests</button>
+            <button class="navigate-btn" [class.active] = "currentPage === 'balance'" (click)="openBalancePage()">Balance</button>
+            <button class="navigate-btn" [class.active] = "currentPage === 'request'" (click)="openRequestPage()">Requests</button>
+            <button class="navigate-btn" [class.active] = "currentPage === 'leave-policy'" (click)="openLeavePolicy()">Leave Policy</button>
         </div>
         <div class="leave-profile-body-content">
-           <app-my-balance *ngIf="isBalancePage"></app-my-balance>
-           <app-my-requests *ngIf="!isBalancePage"></app-my-requests>
+           <app-my-balance *ngIf="currentPage === 'balance'"></app-my-balance>
+           <app-my-requests *ngIf="currentPage === 'request'"></app-my-requests>
         </div>
     </div>
     </div>

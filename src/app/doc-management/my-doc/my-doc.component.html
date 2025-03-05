@@ -9,7 +9,7 @@
     </div>
     <div class="line"></div>
     <div class="doc-main">
-        <div class="doc-card" *ngFor="let file of userData.myFiles?.others">
+        <div class="doc-card" *ngFor="let file of userData?.myFiles?.others">
             <img src="pdf.png" alt="doc" class="doc-card-img">
             <span (click)="openDocument(file)">{{file}}</span>
             <i class="fa-solid fa-square-minus" (click)="deleteDoc(file)"></i>
@@ -17,14 +17,10 @@
     </div>
 </div>
 
-<!-- Document Viewer Modal -->
 <div class="doc-viewer" *ngIf="openedFileUrl">
     <div class="doc-viewer-overlay" (click)="closeDocument()"></div>
     <div class="doc-viewer-content">
         <button class="close-btn" (click)="closeDocument()"><i class="fa-solid fa-close"></i></button>
         <ngx-doc-viewer [url]="openedFileUrl" viewer="url" style="width: 900px; height: 580px;"></ngx-doc-viewer>
-        <!-- <pdf-viewer [src]="openedFileUrl"
-         style="width: 900px; height: 580px"
-  ></pdf-viewer> -->
     </div>
 </div>

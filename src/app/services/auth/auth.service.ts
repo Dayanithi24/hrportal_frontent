@@ -23,7 +23,7 @@ export class AuthService {
     private router: Router,
     private userDataService: UserDataService
   ) {
-    this.baseUrl = 'http://127.0.0.1:8080/';
+    this.baseUrl = 'http://127.0.0.1:8080/v1/api/';
   }
 
   getAuthToken(obj: any): Observable<any> {

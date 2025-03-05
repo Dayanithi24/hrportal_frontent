@@ -31,7 +31,7 @@ export class HeaderComponent {
   }
 
   loadProfile() {
-    this.router.navigate(['home/user/my-profile']);
+    this.router.navigate([`home/user/profile/${this.userData.id}`], { state: {userData: this.userData} });
   }
 
   getProfileImage() {

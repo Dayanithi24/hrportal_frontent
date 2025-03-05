@@ -49,6 +49,6 @@ export const routes: Routes = [
     title: 'Unauthorized',
     component: UnauthorizedComponent,
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', title: '404 Not Found', component: NotFoundComponent },
 ];

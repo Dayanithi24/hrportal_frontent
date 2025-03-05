@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-leave-profile',
@@ -7,15 +8,28 @@ import { Component } from '@angular/core';
   styleUrl: './leave-profile.component.css',
 })
 export class LeaveProfileComponent {
-  isBalancePage = true;
+  currentPage = 'balance';
   isTimeOff = false;
+  isAdmin: boolean = false;
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    const roles = this.authService.getUserRole()?.split(',');
+    if (roles?.some((role) => ['ADMIN', 'HR'].includes(role))) {
+      this.isAdmin = true;
+    }
+  }
 
   openBalancePage() {
-    this.isBalancePage = true;
+    this.currentPage = 'balance';
   }
 
   openRequestPage() {
-    this.isBalancePage = false;
+    this.currentPage = 'request';
+  }
+
+  openLeavePolicy() {
+    this.currentPage = 'leave-policy';
   }
 
   openTimeOff() {

@@ -78,3 +78,19 @@
 .leave-request.active {
   visibility: visible;
 }
+
+.header-btn-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.tooltip {
+  padding-top: 4px;
+}
+
+.header-btn-container img {
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+}

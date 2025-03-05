@@ -22,14 +22,19 @@ export class MyDocComponent {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.userDataService.currentUser.subscribe({
-      next: (data) => {
-        this.userData = data;
-      },
-      error: (err) => {
-        Swal.fire('Error', err, 'error');
-      },
-    });
+    if(history.state.userData) {
+      this.userData = history.state.userData;
+    }
+    else {
+      this.subscription = this.userDataService.currentUser.subscribe({
+        next: (data) => {
+          this.userData = data;
+        },
+        error: (err) => {
+          Swal.fire('Error', err, 'error');
+        },
+      });
+    }
   }
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -85,7 +90,6 @@ export class MyDocComponent {
   openDocument(fileId: string) {
     this.getFile(fileId).subscribe((fileBase64) => {
       this.openedFileUrl = fileBase64;
-      console.log(this.myFiles);
     });
   }
 
@@ -124,6 +128,7 @@ export class MyDocComponent {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription)
+      this.subscription.unsubscribe();
   }
 }

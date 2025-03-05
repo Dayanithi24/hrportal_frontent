@@ -127,8 +127,13 @@ export class UserListComponent {
   }
 
   loadProfile(user: any) {
-    this.selectedUser = user;
-    setTimeout(() => (this.isProfile = true), 100);
+    if(this.isAdmin){
+      this.router.navigate([`../profile/${user.id}`], { relativeTo: this.route, state: {userData : user}});
+    }
+    else{
+      this.selectedUser = user;
+      setTimeout(() => (this.isProfile = true), 100);
+    }
   }
 
   updateUser(user: any) {

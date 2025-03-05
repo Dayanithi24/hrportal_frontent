@@ -1,0 +1,68 @@
+.doc-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+  
+  .doc-header h1 {
+    color: #666;
+    font-weight: 600;
+  }
+  
+  .doc-card {
+      border-radius: 6px;
+      padding: 10px;
+      min-height: 100px;
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+  }
+  
+  .doc-card-img {
+      height: 80px;
+      width: 80px;
+  }
+  
+  .doc-card span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      word-break: break-all;
+      font-size: smaller;
+      cursor: pointer;
+  }
+  
+  .doc-card i {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      color: #f00;
+      cursor: pointer;
+      visibility: hidden;
+  }
+  
+  .doc-card:hover i {
+      visibility: visible;
+  }
+  
+  .doc-card span:hover {
+      text-decoration: underline;
+  }
+  
+  .tooltip {
+      margin-right: 30px;
+  }
+  
+  .doc-main {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 20px;
+  }
+  

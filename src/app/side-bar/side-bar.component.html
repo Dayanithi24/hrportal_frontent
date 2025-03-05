@@ -8,7 +8,7 @@
             <i class="fa-regular fa-clock"></i>
             <span>Time</span>
         </div>
-        <div class="sidebar-content" routerLink="./docs">
+        <div class="sidebar-content" [routerLink]="isAdmin ? './docs/all-docs' : './docs/my-docs'">
             <i class="fa-regular fa-file"></i>
             <span>Docs</span>
         </div>

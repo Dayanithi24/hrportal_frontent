@@ -110,7 +110,22 @@ input[type="file"]::-webkit-file-upload-button {
   background-color: #ff0080;
 }
 
-.con1 {
-  background-color: #ccc;
+.calendar-container {
+  padding: 20px;
   flex-grow: 1;
+}
+
+::ng-deep .fc-toolbar-title {
+  font-size: large !important;
+}
+
+::ng-deep .fc-col-header-cell-cushion, ::ng-deep .fc table {
+  font-size: 14px !important;
+}
+
+::ng-deep .fc .fc-button {
+  padding: 2px 5px;
+  font-size: small;
+  margin: 0 5px;
+  border-radius: 3px !important;
 }

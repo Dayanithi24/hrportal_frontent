@@ -1,0 +1,12 @@
+<div class="doc-container">
+    <div class="doc-header">
+        <h1 class="doc-header-title">Documents</h1>
+    </div>
+    <div class="line"></div>
+    <div class="doc-main">
+        <div class="doc-card" *ngFor="let user of users; let i = index">
+            <img src="folder.png" alt="doc" class="doc-card-img">
+            <span (click)="loadDoc(user)">{{getUserName(i)}}</span>
+        </div>
+    </div>
+</div>
