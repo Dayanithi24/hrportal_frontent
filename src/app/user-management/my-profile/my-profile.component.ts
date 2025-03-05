@@ -11,10 +11,13 @@ import Swal from 'sweetalert2';
   styleUrl: './my-profile.component.css',
 })
 export class MyProfileComponent {
+  user!: any;
   userData: any;
   age!: string;
   duration!: string;
+  isSameUser: boolean = false;
   openedFileUrl: string | null = null;
+  subscription!: Subscription;
 
   constructor(
     private userDataService: UserDataService,
@@ -28,7 +31,12 @@ export class MyProfileComponent {
       Date.parse(this.userData.dateOfJoining)
     );
     this.getProfileImage();
+    this.subscription = this.userDataService.currentUser.subscribe((data) => {
+      this.user = data;
+      this.isSameUser = this.user.id === this.userData.id;
+    });
   }
+
   getTimeDuration(date: any) {
     const time = (Date.now() - date) / (1000 * 3600 * 24) / 365.25;
     const timeSplit = time.toFixed(5).split('.');
@@ -54,7 +62,10 @@ export class MyProfileComponent {
             .uploadProfileImage(this.userData.id, file)
             .subscribe((id) => {
               this.userData.myFiles.profile = id;
-              this.userDataService.updateProfile(this.userData);
+              if (this.isSameUser) {
+                this.userDataService.updateProfile(this.userData);
+              }
+              this.getProfileImage();
               Swal.fire({
                 title: 'Profile Changed Successfully',
                 icon: 'success',
@@ -89,5 +100,9 @@ export class MyProfileComponent {
 
   objectKeys(obj: any): string[] {
     return Object.keys(obj);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

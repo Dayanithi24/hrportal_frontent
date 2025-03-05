@@ -15,6 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
+    title: 'HR PORTAL',
     component: LandingComponent,
     canActivate: [authGuard],
     children: [

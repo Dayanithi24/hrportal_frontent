@@ -1,7 +1,7 @@
 <div class="doc-container">
     <div class="doc-header">
-        <h1 class="doc-header-title">My Documents</h1>
-        <div class="tooltip">
+        <h1 class="doc-header-title">{{isSameUser ? 'My Documents' : 'Documents'}}</h1>
+        <div class="tooltip" *ngIf="isSameUser">
             <input type="file" id="file" (change)="onFileSelected($event)" [multiple]="false" accept=".pdf" style="display: none;">
             <label for="file" class="request-btn">Upload</label>
             <span class="tooltip-text">Attach Document</span>

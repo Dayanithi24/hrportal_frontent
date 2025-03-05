@@ -13,6 +13,7 @@ import { UserDataService } from '../../services/user-data/user-data.service';
 export class MyDocComponent {
   subscription!: Subscription;
   userData!: any;
+  isSameUser: boolean = false;
   openedFileUrl: string | null = null;
   myFiles: Map<string, string> = new Map();
 
@@ -29,6 +30,7 @@ export class MyDocComponent {
       this.subscription = this.userDataService.currentUser.subscribe({
         next: (data) => {
           this.userData = data;
+          this.isSameUser = true;
         },
         error: (err) => {
           Swal.fire('Error', err, 'error');
@@ -55,7 +57,8 @@ export class MyDocComponent {
                 this.userData.myFiles.others = [];
               }
               this.userData.myFiles.others.push(id);
-              this.userDataService.updateProfile(this.userData);
+              if(this.isSameUser)
+                this.userDataService.updateProfile(this.userData);
               Swal.fire({
                 title: 'File Uploaded Successfully',
                 icon: 'success',

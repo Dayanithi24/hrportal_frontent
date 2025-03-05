@@ -8,7 +8,6 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 export const userManagementRoutes: Routes = [
   { path: 'profile/:id', component: MyProfileComponent },
   { path: 'list', component: UserListComponent },
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
   {
     path: 'create-user',
     component: CreateUserComponent,
@@ -21,4 +20,5 @@ export const userManagementRoutes: Routes = [
     canActivate: [roleGuard],
     data: { roles: ['ADMIN', 'HR'] },
   },
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
 ];

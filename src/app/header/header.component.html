@@ -2,7 +2,7 @@
     <div class="header-content">
         <h2>Hr Portal</h2>
         <div class="avatar-container">
-            <img [src]="getProfileImage() ?? 'no-image.jpg'" (click)="loadProfile()">
+            <img [src]="openedFileUrl ?? 'no-image.jpg'" (click)="loadProfile()">
             <div class="logout-container">
                 <i class="fa-solid fa-right-from-bracket" (click)="onLogout()"></i>
             </div>

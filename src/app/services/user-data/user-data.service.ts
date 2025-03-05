@@ -49,15 +49,6 @@ export class UserDataService {
     this.profileSubject.next(user);
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('userRoles', user.roles.toString());
-    this.fetchService
-      .getFile(user.myFiles.profile)
-      .subscribe((image: any) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          localStorage.setItem('profileImage', reader.result as string);
-        };
-        reader.readAsDataURL(image);
-      });
   }
 
   getProfile(): UserProfile | null {
@@ -68,6 +59,5 @@ export class UserDataService {
     this.profileSubject.next(null);
     localStorage.removeItem('user');
     localStorage.removeItem('userRoles');
-    localStorage.removeItem('profileImage');
   }
 }
