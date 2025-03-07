@@ -25,4 +25,8 @@ export class LeaveService {
     return this.http.delete(`${this.baseUrl}leave/${id}`, { responseType: 'text'});
   }
 
+  createLeavePolicy(policy: any, userId: string | undefined) {
+    return this.http.post(`${this.baseUrl}leave-policy/?userId=${userId}&timezone=${this.timezone}`, policy);
+  }
+
 }

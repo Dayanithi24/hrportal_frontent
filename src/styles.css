@@ -127,6 +127,11 @@ select {
   color: white;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+
 .mat-datepicker-toggle,
 .mat-mdc-floating-label.mdc-floating-label--float-above {
   color: #ff0080 !important;

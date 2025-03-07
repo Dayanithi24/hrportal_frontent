@@ -42,10 +42,6 @@
   margin: 10px 0;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-}
-
 .input-container input,
 .input-container select {
   height: 40px;

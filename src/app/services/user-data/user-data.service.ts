@@ -55,6 +55,10 @@ export class UserDataService {
     return this.profileSubject.value;
   }
 
+  getUserId(): string | undefined {
+    return this.profileSubject.value?.id;
+  }
+
   clearProfile() {
     this.profileSubject.next(null);
     localStorage.removeItem('user');

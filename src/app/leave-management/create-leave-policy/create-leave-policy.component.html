@@ -3,13 +3,61 @@
         <h1>Create Policy</h1>
     </div>
     <div class="line"></div>
+    <div class="create-policy-container">
     <div class="create-policy-content">
-        <h2>Casual Leave</h2>
-        <div class="create-policy-row">
-            <div>
-                <label></label>
-                <input type="number">
+    <form [formGroup]="leavePolicyForm" class="create-policy-form">
+            <div class="date-container">
+                <label>Duration of this Leave Policy : </label>
+                <div class="input-container">
+                    <input type="date" formControlName="startDate">
+                </div>
+                <span>to</span>
+                <div class="input-container">
+                    <input type="date" [min]="leavePolicyForm.controls['startDate'].value" formControlName="endDate">
+                </div>
             </div>
-        </div>
+            <div formArrayName="leaves">
+                <div *ngFor="let leave of leaves.controls; let i = index" [formGroupName]="i" class="policy-card">
+                    
+                    <div>
+                        <div class="leave-policy-container">
+                            <input formControlName="name" placeholder="Leave Policy Name" class="leave-name" />
+                            <button class="request-btn" (click)="removeLeavePolicy(i)">Remove</button>
+                        </div>
+                        <span class="error-message" *ngIf="leave.get('name')?.invalid && leave.get('name')?.touched">
+                            Policy Name is required!
+                        </span>
+                    </div>
+
+                    <div formArrayName="details">
+                        <div *ngFor="let detail of getDetails(i).controls; let j = index" [formGroupName]="j" >
+                            <div class="leave-detail-container"> 
+                                <select class="leave-name" formControlName="duration">
+                                    <option value="Year">Year</option>
+                                    <option value="Month">Month</option>
+                                    <option value="Week">Week</option>
+                                    <option value="Day">Day</option>
+                                </select>
+                                <input formControlName="noOfDays" type="number" placeholder="Enter Value" class="leave-name" style="width: 25%;" min="0"/>
+                                <i class="fa-solid fa-square-minus decrementor" (click)="removeDetail(i, j)"></i>
+                            </div>
+                            <span class="error-message" *ngIf="detail.get('duration')?.invalid && detail.get('duration')?.touched">
+                                Duration is required!
+                            </span>
+                            <span class="error-message" *ngIf="detail.get('noOfDays')?.invalid && detail.get('noOfDays')?.touched">
+                                Days must be a non-negative number!
+                            </span>
+                        </div>
+                        <button class="incrementor" (click)="addDetail(i)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="btn-container">
+                <button type="button" (click)="addLeavePolicy()" class="request-btn">Add Leave Policy</button>
+                <button type="button" (click)="savePolicy()" class="request-btn">Save</button>
+            </div>
+        </form>        
     </div>
+</div>
 </div>
