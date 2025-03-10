@@ -25,6 +25,8 @@ export class MyDocComponent {
   ngOnInit() {
     if(history.state.userData) {
       this.userData = history.state.userData;
+      const id = this.userDataService.getUserId();
+      if(id === this.userData.id) this.isSameUser = true;
     }
     else {
       this.subscription = this.userDataService.currentUser.subscribe({

@@ -9,6 +9,7 @@ import {
 import { UserDataService } from '../../services/user-data/user-data.service';
 import Swal from 'sweetalert2';
 import { LeaveService } from '../../services/leave/leave.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-leave-policy',
@@ -23,7 +24,9 @@ export class CreateLeavePolicyComponent {
   constructor(
     private fb: FormBuilder,
     private userDataService: UserDataService,
-    private leaveService: LeaveService
+    private leaveService: LeaveService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.leavePolicyForm = this.fb.group({
       startDate: ['', Validators.required],
@@ -107,10 +110,11 @@ export class CreateLeavePolicyComponent {
         });        
           this.leaveService.createLeavePolicy(this.leavePolicyForm.value, this.userId).subscribe({
             next: (data) => {
-              console.log(data);
+              Swal.fire("Created Successfully!!", '', 'success');
+              this.router.navigate(['../'], {relativeTo: this.route} )
             },
             error: (err) => {
-              console.log(err);
+              Swal.fire('Error', '', 'error');
             },
           });
         }

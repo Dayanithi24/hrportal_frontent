@@ -29,4 +29,8 @@ export class LeaveService {
     return this.http.post(`${this.baseUrl}leave-policy/?userId=${userId}&timezone=${this.timezone}`, policy);
   }
 
+  getCurrentLeavePolicy() {
+    return this.http.get(`${this.baseUrl}leave-policy/active?timezone=${this.timezone}`)
+  }
+
 }

@@ -13,19 +13,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-import { SetLeaveComponent } from './set-leave/set-leave.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { LeaveCalendarComponent } from './leave-calender/leave-calender.component';
+import { LeavePolicyComponent } from './leave-policy/leave-policy.component';
 
 @NgModule({
   declarations: [
     CreateLeavePolicyComponent,
     LeaveProfileComponent,
     LeaveRequestComponent,
-    SetLeaveComponent,
     MyBalanceComponent,
     MyRequestsComponent,
     LeaveCalendarComponent,
+    LeavePolicyComponent,
   ],
   imports: [
     CommonModule,

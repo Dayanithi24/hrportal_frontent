@@ -1,0 +1,9 @@
+<div class="leave-policy-card">
+    <p>From the current leave policy,</p>
+    <div *ngFor="let leave of leavePolicy.leaves">
+        <h4>{{leave.name}}</h4>
+        <div *ngFor="let detail of leave.details">
+            <span>Maximum days in a {{detail.duration}} : {{detail.noOfDays}}</span>
+        </div>
+    </div>
+</div>

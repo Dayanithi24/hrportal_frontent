@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/core/index.js';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -18,6 +18,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 export class LeaveRequestComponent {
   leaveForm!: FormGroup;
   isSameDate = false;
+  leavePolicy: any;
   today!: string;
   @Output() closeEvent = new EventEmitter();
 
@@ -54,6 +55,7 @@ export class LeaveRequestComponent {
   }
 
   ngOnInit() {
+    this.leavePolicy = history.state.leavePolicy;
     this.loadEvents();
     this.today = new Date().toISOString().split('T')[0];
     this.leaveForm

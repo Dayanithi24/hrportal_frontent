@@ -9,10 +9,7 @@
             <div class="input-container">
                 <label>Leave Type</label>
                 <select formControlName="leaveType">
-                    <option>Sick Leave</option>
-                    <option>Casual Leave</option>
-                    <option>Loss of Pay</option>
-                    <option>Work from Home</option>
+                    <option *ngFor="let leave of leavePolicy.leaves" [value]="leave.name">{{leave.name}}</option>
                 </select>
             </div>
             <div>
@@ -38,7 +35,7 @@
                     <div class="input-container" *ngIf="leaveForm.get('duration')?.value === 'Half Day'">
                         <label>Session</label>
                         <select formControlName="session">
-                            <option>Forenoon</option>
+                            <option>Morning</option>
                             <option>Afternoon</option>
                         </select>
                     </div>
