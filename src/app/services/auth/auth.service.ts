@@ -9,21 +9,21 @@ import { UserDataService } from '../user-data/user-data.service';
 })
 export class AuthService {
   baseUrl!: string;
-
-  getUserRole(): string | null {
-    return localStorage.getItem('userRoles');
-  }
-
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
-  }
-
+  
   constructor(
     private http: HttpClient,
     private router: Router,
     private userDataService: UserDataService
   ) {
     this.baseUrl = 'http://127.0.0.1:8080/v1/api/';
+  }
+  
+  getUserRole(): string | null {
+    return localStorage.getItem('userRoles');
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
   }
 
   getAuthToken(obj: any): Observable<any> {

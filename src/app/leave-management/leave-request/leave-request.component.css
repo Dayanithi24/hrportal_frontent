@@ -125,3 +125,12 @@ input[type="file"]::-webkit-file-upload-button {
   margin: 0 5px;
   border-radius: 3px !important;
 }
+
+::ng-deep .fc-event-title-container {
+  text-align: center;
+}
+
+.leave-duration-msg {
+  font-size: small;
+  color: #ff0080;
+}

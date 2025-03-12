@@ -17,13 +17,14 @@
                 <div class="date-container">
                     <div class="input-container">
                         <label>Start Date</label>
-                        <input type="date" [min]="today" formControlName="startDate">
+                        <input type="date" [min]="today" (input)="onStartChange()" formControlName="startDate">
                     </div>
                     <div class="input-container">
                         <label>End Date</label>
                         <input type="date" [min]="leaveForm.controls['startDate'].value" formControlName="endDate">
                     </div>
                 </div>
+                <span class="leave-duration-msg" *ngIf="isDurationVisible">Requested Leave Duration : {{leaveDuration}}</span>
                 <div class="date-container" *ngIf="isSameDate">
                     <div class="input-container">
                         <label>Duration</label>

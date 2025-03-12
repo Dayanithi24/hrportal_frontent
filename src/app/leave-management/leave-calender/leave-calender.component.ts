@@ -78,10 +78,14 @@ export class LeaveCalendarComponent {
       showCancelButton: true
     }).then((result) => {
       if (result.value) {
+        let endDate = new Date(selectInfo.endStr);
+        if(selectInfo.allDay) {
+          endDate = new Date(endDate.getTime() - 1000);
+        }
         const newEvent = {
           title: result.value,
           start: new Date(selectInfo.startStr).toISOString(),
-          end: new Date(selectInfo.endStr).toISOString(),
+          end: endDate.toISOString(),
           allDay: selectInfo.allDay,
           createdBy: this.userData.id
         };
