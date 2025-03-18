@@ -1,9 +1,16 @@
-<div class="leave-policy-card">
-    <p>From the current leave policy,</p>
-    <div *ngFor="let leave of leavePolicy.leaves">
-        <h4>{{leave.name}}</h4>
-        <div *ngFor="let detail of leave.details">
-            <span>Maximum days in a {{detail.duration}} : {{detail.noOfDays}}</span>
+<div>
+    <div class="header">
+        <button class="request-btn" routerLink="../create-leave-policy" *ngIf="isAdmin">Create</button>
+    </div>
+    <div class="leave-policy-card">
+        <p>From the current leave policy,</p>
+        <div class="leave-card-container">
+        <div *ngFor="let leave of leavePolicy.leaves"  class="leave-card">
+            <h4>{{leave.name.toUpperCase()}}</h4>
+            <div *ngFor="let detail of leave.details" class="leave-card-detail">
+                <span>Maximum days in a {{detail.duration}} : {{detail.noOfDays}}</span>
+            </div>
+        </div>
         </div>
     </div>
 </div>

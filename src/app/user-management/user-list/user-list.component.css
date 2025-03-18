@@ -29,6 +29,7 @@
   height: 40px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .user-list-footer {
@@ -190,6 +191,10 @@
 .dropdown-list li.selected {
   background: #ff0080;
   color: white;
+}
+
+.category.dropdown-toggle {
+  width: 115px;
 }
 
 .page-traverse-container {

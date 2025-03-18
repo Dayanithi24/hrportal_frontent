@@ -1,1 +1,156 @@
-<p>my-requests works!</p>
+<div class="container">
+    <div class="my-requests-container my-request">
+        <div>
+            <h2>My Requests</h2>
+        </div>
+        <div>
+            <div class="user-table-container" *ngIf="myRequests?.length > 0">
+                <div class="user-table-fixed">
+                    <div class="user-table-row"></div>
+                    <div *ngFor="let request of myRequests" class="user-table-row">
+                        <div class="status-container">
+                            <div class="status" 
+                            [class.red]="request.status === 'REJECTED'"
+                            [class.green]="request.status === 'APPROVED'"
+                            [class.yellow]="request.status === 'PENDING'"
+                            >
+                                <span class="circle"></span>
+                                <span>{{request.status}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-table-scrollable">
+                    <table class="user-table">
+                        <tr class="user-table-row">
+                            <th class="user-table-header user-table-cell">Leave Type</th>
+                            <th class="user-table-header user-table-cell">Start Date</th>
+                            <th class="user-table-header user-table-cell">End Date</th>
+                            <th class="user-table-header user-table-cell">Duration</th>
+                            <th class="user-table-header user-table-cell">Approver</th>
+                            <th class="user-table-header user-table-cell">Description</th>
+                            <th class="user-table-header user-table-cell">Documents</th>
+                            <th class="user-table-header user-table-cell">Requested At</th>
+                        </tr>
+                        <tr *ngFor="let request of myRequests; let i = index" class="user-table-row">
+                            <td class="user-table-cell"> {{request.leaveType}} </td>
+                            <td class="user-table-cell"> {{request.startDate}} </td>
+                            <td class="user-table-cell"> {{request.endDate}} </td>
+                            <td class="user-table-cell"> {{request.duration}} </td>
+                            <td class="user-table-cell"> 
+                                <app-avatar [userData]="request.approver"></app-avatar>    
+                            </td>
+                            <td class="user-table-cell"> {{request.requestReason === ''? '-' : request.requestReason}} </td>
+                            <td class="user-table-cell">
+                                <div class="doc-overflow-container">
+                                    <div class="doc-container" *ngIf="request?.documents !== null">
+                                        <i class="fa-regular fa-file" 
+                                        *ngFor="let file of request.documents"
+                                        (click)="openDocument(file)"
+                                        ></i>
+                                    </div>
+                                    <span *ngIf="request.documents === null">-</span>
+                                </div>
+                            </td>
+                            <td class="user-table-cell"> {{getLocalDate(request.requestedAt)}} </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p *ngIf="myRequests?.length === 0">No leave requests have been submitted yet.</p>
+        </div>
+    </div>
+
+    <div class="my-requests-container team-request">
+        <div>
+            <h2>My Team Requests</h2>
+        </div>
+        <div>
+            <div class="user-table-container" *ngIf="myTeamRequests?.length > 0">
+                <div class="user-table-fixed">
+                    <div class="user-table-row"></div>
+                    <div *ngFor="let request of myTeamRequests" class="user-table-row">
+                        <div class="status-container" >
+                            <div class="status" 
+                            [class.red]="request.status === 'REJECTED'"
+                            [class.green]="request.status === 'APPROVED'"
+                            [class.yellow]="request.status === 'PENDING' || request.status === 'CANCELLED'"
+                            (click)="toggleDropDown()"
+                            #dropDown
+                            >
+                                <span class="circle"></span>
+                                <span>{{request.status}}</span>
+                            </div>
+                            <ul class="status-list" *ngIf="dropdownOpen">
+                                <li (click)="approveRequest(request.id)">
+                                    <div class="status green">
+                                        <span class="circle"></span>
+                                        <span>Approve</span>
+                                    </div>
+                                </li>
+                                <li (click)="rejectRequest(request.id)">
+                                    <div class="status red">
+                                        <span class="circle"></span>
+                                        <span>Reject</span>
+                                    </div>
+                                </li>
+                                <li (click)="cancelRequest(request.id, request.requesterId)">
+                                    <div class="status yellow">
+                                        <span class="circle"></span>
+                                        <span>Cancel</span>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-table-scrollable">
+                    <table class="user-table">
+                        <tr class="user-table-row">
+                            <th class="user-table-header user-table-cell">Leave Type</th>
+                            <th class="user-table-header user-table-cell">Start Date</th>
+                            <th class="user-table-header user-table-cell">End Date</th>
+                            <th class="user-table-header user-table-cell">Duration</th>
+                            <th class="user-table-header user-table-cell">Requestor</th>
+                            <th class="user-table-header user-table-cell">Description</th>
+                            <th class="user-table-header user-table-cell">Documents</th>
+                            <th class="user-table-header user-table-cell">Requested At</th>
+                        </tr>
+                        <tr *ngFor="let request of myTeamRequests; let i = index" class="user-table-row">
+                            <td class="user-table-cell"> {{request.leaveType}} </td>
+                            <td class="user-table-cell"> {{request.startDate}} </td>
+                            <td class="user-table-cell"> {{request.endDate}} </td>
+                            <td class="user-table-cell"> {{request.duration}} </td>
+                            <td class="user-table-cell"> 
+                                <app-avatar [userData]="request.requestor"></app-avatar>    
+                            </td>
+                            <td class="user-table-cell"> {{request.requestReason === ''? '-' : request.requestReason}} </td>
+                            <td class="user-table-cell">
+                                <div class="doc-overflow-container" *ngIf="request.documents !== null">
+                                    <div class="doc-container">
+                                        <i class="fa-regular fa-file" 
+                                        *ngFor="let file of request.documents"
+                                        (click)="openDocument(file)"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <span *ngIf="request.documents === null">-</span>
+                            </td>
+                            <td class="user-table-cell"> {{getLocalDate(request.requestedAt)}} </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p *ngIf="myTeamRequests?.length === 0">No leave requests have been submitted yet.</p>
+        </div>
+    </div>
+</div>
+
+<div class="doc-viewer" *ngIf="openedFileUrl">
+    <div class="doc-viewer-overlay" (click)="closeDocument()"></div>
+    <div class="doc-viewer-content">
+        <button class="close-btn" (click)="closeDocument()"><i class="fa-solid fa-close"></i></button>
+        <ngx-doc-viewer [url]="openedFileUrl" viewer="url" style="width: 900px; height: 580px;"></ngx-doc-viewer>
+    </div>
+</div>

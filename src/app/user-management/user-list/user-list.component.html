@@ -6,6 +6,19 @@
     <div class="user-list-container" [ngClass]="isProfile ? 'active' : ''">
         <div class="user-list-header">
             <p>Total : {{responseData.totalElements}}</p>
+            <div class="page-size-container">
+                <div class="dropdown">
+                <div class="category dropdown-toggle" (click)="toggleCategory()" #categoryElement>
+                    {{category.value}}
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                
+                <ul class="category dropdown-list" *ngIf="categoryOpen">
+                    <li (click)="changeCategory('All')">All</li>
+                    <li (click)="changeCategory('My Team')">My Team</li>
+                </ul>
+            </div>            
+            </div>
         </div>
         <div class="user-table-container">
             <div class="user-table-fixed">

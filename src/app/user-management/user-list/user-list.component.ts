@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from '../../app.routes';
 import { AuthService } from '../../services/auth/auth.service';
 import Swal from 'sweetalert2';
+import { UserDataService } from '../../services/user-data/user-data.service';
 
 @Component({
   selector: 'app-user-list',
@@ -13,69 +14,31 @@ import Swal from 'sweetalert2';
   styleUrl: './user-list.component.css',
 })
 export class UserListComponent {
+  id!: string | undefined;
   pageSizes: Array<number> = [5, 10, 20];
   page: number = 0;
   selectedSize = new FormControl(5);
+  category = new FormControl('All');
   responseData: any;
   isLoaded: boolean = false;
   isAdmin: boolean = false;
   isProfile = false;
   dropdownOpen = false;
   selectedUser: any;
+  categoryOpen: boolean = false;
   @ViewChild('dropdown') dropDown!: ElementRef;
-
-  profiles: Array<{ [key: string]: any }> = [
-    {
-      name: 'Daya',
-      department: 'Engineering',
-      reports_to: 'hr_1',
-      start_date: '02/09/2024',
-      designation: 'Trainee',
-      location: 'Cbe',
-      src: 'google.png',
-    },
-    {
-      name: 'Raya',
-      department: 'Engineering',
-      reports_to: 'hr_1',
-      start_date: '02/09/2024',
-      designation: 'Trainee',
-      location: 'Cbe',
-    },
-    {
-      name: 'Raya',
-      department: 'Engineering',
-      reports_to: 'hr_1',
-      start_date: '02/09/2024',
-      designation: 'Trainee',
-      location: 'Cbe',
-    },
-    {
-      name: 'Raya',
-      department: 'Engineering',
-      reports_to: 'hr_1',
-      start_date: '02/09/2024',
-      designation: 'Trainee',
-      location: 'Cbe',
-    },
-    {
-      name: 'Raya',
-      department: 'Engineering',
-      reports_to: 'hr_1',
-      start_date: '02/09/2024',
-      designation: 'Trainee',
-      location: 'Cbe',
-    },
-  ];
+  @ViewChild('categoryElement') categoryElement!: ElementRef;
 
   constructor(
     private fetchService: FetchService,
     private authService: AuthService,
+    private userDataService: UserDataService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.id = this.userDataService.getUserId();
     this.fetchData();
     const roles = this.authService.getUserRole()?.split(',');
     if (roles?.some((role) => ['ADMIN', 'HR'].includes(role))) {
@@ -84,12 +47,27 @@ export class UserListComponent {
   }
 
   fetchData() {
-    this.fetchService
-      .getUsers(this.page, this.selectedSize.value)
+    if(this.category.value === 'All') {
+      this.fetchService
+        .getUsers(this.page, this.selectedSize.value)
+        .subscribe((data: any) => {
+          this.responseData = data;
+          this.isLoaded = true;
+        });
+    } else {
+      this.fetchService.getMyTeam(this.id, this.page, this.selectedSize.value)
       .subscribe((data: any) => {
-        this.responseData = data;
-        this.isLoaded = true;
-      });
+          this.responseData = data;
+          this.isLoaded = true;
+        });
+    }
+  }
+
+  changeCategory(cat: string) {
+    if(cat !== this.category.value) {
+      this.category.setValue(cat);
+      this.fetchData();
+    }
   }
 
   selectSize(size: number) {
@@ -102,6 +80,10 @@ export class UserListComponent {
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
+  
+  toggleCategory() {
+    this.categoryOpen = !this.categoryOpen;
+  }
 
   @HostListener('click', ['$event'])
   onClick(event: Event) {
@@ -110,6 +92,11 @@ export class UserListComponent {
       !this.dropDown?.nativeElement.contains(event.target)
     )
       this.dropdownOpen = false;
+    if (
+      event.target !== this.categoryElement?.nativeElement &&
+      !this.categoryElement?.nativeElement.contains(event.target)
+    )
+      this.categoryOpen = false;
   }
 
   incrementPage() {

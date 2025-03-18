@@ -32,9 +32,13 @@ export class FetchService {
   getUsers(page: number, size: number | null) {
     return this.http.get(`${this.baseUrl}user/?page=${page}&size=${size}`);
   }
-
+  
   getUser(userId: string) {
     return this.http.get(`${this.baseUrl}user/${userId}`);
+  }
+  
+  getMyTeam(userId: string | undefined, page: number, size: number | null) {
+    return this.http.get(`${this.baseUrl}user/my-team/${userId}?page=${page}&size=${size}`);
   }
 
   uploadProfileImage(userId: string, imageFile: File) {

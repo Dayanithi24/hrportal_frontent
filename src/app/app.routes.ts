@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth/auth.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
   { path: 'login', title: 'Login', component: LoginComponent },
@@ -41,6 +42,11 @@ export const routes: Routes = [
           import('./doc-management/doc-management.module').then(
             (c) => c.DocManagementModule
           ),
+        canActivate: [authGuard],
+      },
+      {
+        path: '',
+        component: HomeComponent,
         canActivate: [authGuard],
       },
     ],

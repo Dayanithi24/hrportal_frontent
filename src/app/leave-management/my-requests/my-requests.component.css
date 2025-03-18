@@ -1,0 +1,229 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.user-table-container {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    width: 100%;
+  }
+  
+  .user-table-fixed {
+    width: 15%;
+  }
+  
+  .user-table-fixed .user-table-row:first-child {
+    border-radius: 8px 0 0 0;
+  }
+  
+  .user-table-scrollable {
+    box-shadow: 2px 0 5px #ccc inset;
+    width: max-content;
+    overflow-x: scroll;
+    border-radius: 0 8px 0 0;
+  }
+  
+  .user-table-scrollable::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .user-table-scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20px;
+  }
+  
+  .user-table-scrollable::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+  }
+  
+  .user-table-scrollable::-webkit-scrollbar-thumb:hover {
+    background: #777;
+  }
+  
+  .user-table {
+    text-align: left;
+    border-collapse: collapse;
+    width: max-content;
+  }
+  
+  .user-table-row {
+    background-color: #fff;
+    color: #666;
+    height: 54px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .user-table-header {
+    font-weight: 600;
+  }
+  
+  .user-table-cell {
+    padding: 0 20px;
+    height: 54px;
+    box-sizing: content-box;
+  }
+
+  .my-requests-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .status-container {
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: max-content;
+    padding: 0 5px;
+    border-radius: 20px;
+  }
+
+  .circle {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+  }
+
+  .status.green {
+    color: green;
+    background-color: rgb(131, 255, 156);
+  }
+
+  .status.green .circle {
+    background-color: green;
+  }
+
+  .status.yellow {
+    color: rgb(211, 151, 0);
+    background-color: rgb(255, 226, 153);
+  }
+
+  .status.yellow .circle {
+    background-color: rgb(211, 151, 0);
+  }
+
+  .status.red {
+    color: rgb(172, 0, 0);
+    background-color: rgb(255, 153, 153);
+  }
+
+  .status.red .circle {
+    background-color: rgb(172, 0, 0);
+  }
+
+  .doc-overflow-container {
+    overflow-x: scroll;
+  }
+
+  .doc-overflow-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .doc-container {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+  }
+
+  .doc-container i {
+    cursor: pointer;
+  }
+
+  .doc-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.doc-viewer-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.doc-viewer-content {
+    background: white;
+    padding: 20px;
+    width: 1000px;
+    height: 580px;
+    position: relative;
+    top:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: #ccc;
+    border: none;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+h2 {
+  color: #333;
+}
+
+.status-list {
+  position: absolute; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f6f6f6;
+  padding: 15px;
+  right: -82%;
+  list-style: none;
+  border-radius: 16px;
+}
+
+.status-list::before {
+  content: ' ';
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  background-color: #f6f6f6;
+  left: -10px;
+  top: 40%;
+  transform: rotate(45deg);
+}
+
+.status-list li {
+  cursor: pointer;
+  z-index: 1;
+}
+
+.status-list .status {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.team-request .status {
+  cursor: pointer;
+}

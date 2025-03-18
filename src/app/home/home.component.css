@@ -1,0 +1,93 @@
+.home-container {
+    display: flex;
+    padding: 20px;
+}
+
+.container1 {
+    width: 70%;
+    height: 80vh;
+}
+
+.birthday-container {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.birthday-header {
+    color: #444;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.birthday-card-overflow-container {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.birthday-card-overflow-container::-webkit-scrollbar {
+    display: none;
+}
+
+.birthday-card-container {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    padding: 10px 0;
+}
+
+.birthday-card {
+    height: 250px;
+    width: 180px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.birthday-card:hover {
+    box-shadow: 0 0 8px #ccc;
+}
+
+.fill {
+    background-color: pink;
+    height: 60px;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+}
+
+.img-container {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-container img {
+    height: 92%;
+    width: 92%;
+    border-radius: 50%;
+}
+
+.birthday-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.birthday-card-content p {
+    font-size: large;
+    margin-top: 50px;
+    font-weight: 500;
+}

@@ -2,12 +2,12 @@
     <div class="user-card-img-container">
         
         <div class="profile" [ngStyle]="{'background-color': avatarBgColor}">
-            {{userData.firstName.charAt(0).toUpperCase() + userData.lastName.charAt(0).toUpperCase()}}
+            {{userData?.firstName.charAt(0).toUpperCase() + userData?.lastName.charAt(0).toUpperCase()}}
         </div>
     </div>
     <div class="user-card-content">
-        <h4>{{ userData.firstName + " " + userData.lastName }}</h4>
-        <p>{{ userData.department }}</p>
+        <h4>{{ userData?.firstName + " " + userData?.lastName }}</h4>
+        <p>{{ userData?.department }}</p>
     </div>
 </div>
 

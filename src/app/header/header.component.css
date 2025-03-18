@@ -52,3 +52,15 @@
   align-items: center;
   justify-content: center;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.fa-solid.fa-bell {
+  font-size: 25px;
+  color: #fff;
+  cursor: pointer;
+}

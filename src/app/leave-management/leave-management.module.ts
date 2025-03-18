@@ -16,6 +16,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { LeaveCalendarComponent } from './leave-calender/leave-calender.component';
 import { LeavePolicyComponent } from './leave-policy/leave-policy.component';
+import { AvatarComponent } from "../avatar/avatar.component";
+import { NgxDocViewerModule } from 'ngx-doc-viewer'
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { LeavePolicyComponent } from './leave-policy/leave-policy.component';
     MatInputModule,
     MatDatepickerModule,
     FullCalendarModule,
-  ],
+    AvatarComponent,
+    NgxDocViewerModule
+],
   exports: []
 })
 export class LeaveManagementModule {}
