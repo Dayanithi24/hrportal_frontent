@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserDataService } from '../user-data/user-data.service';
+import { env } from '../../../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class AuthService {
     private router: Router,
     private userDataService: UserDataService
   ) {
-    this.baseUrl = 'http://127.0.0.1:8080/v1/api/';
+    this.baseUrl = env.baseUrl;
   }
   
   getUserRole(): string | null {

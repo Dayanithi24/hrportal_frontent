@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { env } from '../../../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class LeaveService {
   timezone!: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://127.0.0.1:8080/v1/api/';
-    this.timezone = 'Asia/Kolkata'
+    this.baseUrl = env.baseUrl;
+    this.timezone = env.timezone;
    }
 
   addEvent(leave: any) {

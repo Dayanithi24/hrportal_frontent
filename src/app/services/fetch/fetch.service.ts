@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { env } from '../../../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ export class FetchService {
   baseUrl!: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://127.0.0.1:8080/v1/api/';
+    this.baseUrl = env.baseUrl;
   }
 
   createUser(user: any) {
