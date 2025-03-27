@@ -1,0 +1,1 @@
+import{M as o,j as r}from"./chunk-W6UYOQXW.js";import{ga as t}from"./chunk-QOCID77Q.js";var p=(n,u)=>{let a=t(o),i=t(r),e=a.getUserRole()?.split(","),s=n.data.roles;if(e){for(let l of e)if(s.includes(l))return!0}return i.navigate(["/unauthorized"]),!1};export{p as a};
